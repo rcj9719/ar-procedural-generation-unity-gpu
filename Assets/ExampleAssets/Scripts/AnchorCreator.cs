@@ -35,7 +35,7 @@ public class AnchorCreator : MonoBehaviour
     }
 
     // On Awake(), we obtains a reference to all the required components.
-    // The ARRaycastManager allows us to perform raycasts so that we know where to place an anchor.
+    // The aRRaycastManager allows us to perform raycasts so that we know where to place an anchor.
     // The ARPlaneManager detects surfaces we can place our objects on.
     // The ARAnchorManager handles the processing of all anchors and updates their position and rotation.
     void Awake()

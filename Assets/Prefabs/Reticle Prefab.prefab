@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5278573886475851317}
   m_Layer: 0
   m_Name: Reticle Prefab
-  m_TagString: Untagged
+  m_TagString: Spawnable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
