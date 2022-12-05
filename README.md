@@ -56,7 +56,7 @@ We implement our L-system generation process based on the paper [Parallel Genera
 ### L-System Derivation and Interpretation
 
 Overall our workflow looks as follows:   
-![](imgs/gpu-lsystem-generation)   
+![](imgs/gpu-lsystem-generation.png)   
 
 Before the derivation starts, there will be a preparation step where every customized rulesets will be loaded into the script, and the compute shader will know what each character will derive into. 
 In the derivation process, each thread will take care of each character in the string, and a prefix sum scan function is used to calculate the total length of the new derived string. Because Compute Shader does not accept character, we are converting character to ASCII code to make sure the dispatch of compute shader goes smoothly. <br>
