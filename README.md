@@ -43,24 +43,29 @@ We implement our L-system generation process based on the paper [Parallel Genera
 * Rendering: render all the items in the array to the scene
 
 ### L-System Derivation&Interpretation
-![Image with How Derive Work]()<br>
+![Image with How Derive Work](imgs/scan.png)<br>
 Before the derivation starts, there will be a preparation step where every customized rulesets will be loaded into the script, and the compute shader will know what each character will derive into. 
 In the derivation process, each thread will take care of each character in the string, and a prefix sum scan function is used to calculate the total length of the new derived string. Because Compute Shader does not accept character, we are converting character to ASCII code to make sure the dispatch of compute shader goes smoothly. <br>
 In each iteration of derivation(L-System might go many iterations), we will first use the scan function to examine the total string length of next iteration's derived string, then we use the prefix sum array to identify the derived characters' indices in the new string. A new string will be generated after this step.<br>
-Our scan function can deal with 512*512 = 262144 elements, and it is sufficient for this project and basically the most complex L-system generation.<br>
+Our scan function can deal with 512*512 = 262144 elements for each L-System, and it is sufficient for this project and basically the most complex L-system generation.<br>
 
 
-![Image With how Interpret Work]()<br>
-Unlike the procedure taken in the paper, we decide to use a 1D linked list to help finish the interpretation in a simpler fashion.<br>
-After we get all the strings from derivation, we will then run:<br>
-* A kernel that identify if each character is a symbol(Something to draw) or not
-* A kernel that identify each character's depth
-* A kernel that identify the position/orientation vector that the character might change to the next character
+![Image With how Interpret Work](imgs/interpret.png)<br>
+This is the paper's approach to the interpretation, but after careful thinking we decide to use a 1D linked list to help finish the interpretation in a simpler fashion.<br>
+After we get all the strings from derivation, we will then set data for:<br>
+* SymbolBuffer: A compute buffer that identify if each character is a symbol(Something to draw) or not
+* DepthBuffer: A compute buffer that identify each character's depth
+* PosBuffer/OriBuffer: A kernel that identify the position/orientation vector that the character might change to the next character<br>
 
-
-
+Then after a prefix sum scan of the Depth buffer and Pos/Ori Buffer, we will then set data for LinkedBuffer, where each index will store its parent's index. This solves the hardest problem when constructing L-system, which is to have every symbol to have its predecessor's data.<br>
+Then we will iterate through the array, fetching all the symbols that need to be draw and their local coordinates. The interpretation marks complete up to this point.
 
 ### L-System Rendering
+![Image with how rendering work](imgs/green1.png)<br>
+
+we have arranged two ways, one in CPU and one in GPU, to render L-System based on different needs.  
+For CPU, we simply instantiate the gameobject we have for each symbol and under not complex scenes their performance is relatively acceptive. The point of keeping this is for debugging and to compare its performance against GPU rendering in terms of simple to not very complex(below 100 L-system) scene.  
+For GPU, we originally passed the mesh/vertex/triangles information to vertex shader and run a shader file to render this at runtime; but during search we find Unity have a DrawProcedural and DrawMesh function, where we can let GPU render mesh at giving world coordinates at runtime, so we also implement this rendering procedure.
 
 
 ### 2D Noise Procedural Generation
@@ -68,18 +73,24 @@ After we get all the strings from derivation, we will then run:<br>
 ## AR Interaction
 
 ## Performance Analysis
+ * Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730  
+
+ For the performance analysis we will first do a analysis on each of the component we have implemented, and then we will analyze the overall performance to show that using GPU for L-system generation is a efficient idea.
 
 ### Grass Performance
 ![](imgs/fpsGrass.png)
   
 ![](imgs/gpuGrass.png)  
-### L-System Performance
+### L-System Performance CPU vs GPU
+
+### L-System Performance Ours vs Online Resources
 
 ### Overall Performance
  
 ## Future Work
 
 ## Credits
+* [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf)
 * [Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
 
 ## Past Presentation
