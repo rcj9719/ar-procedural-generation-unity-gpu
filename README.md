@@ -22,7 +22,20 @@ Project ARC is proposed to implement an application for adding procedural elemen
 Implementation
 ===========
 ## Grass
-
+The grass is rendered through Unity Universal Render Pipeline shaders.
+  
+In order to have grass curvature and convincing grass movement, each blade of grass is divided into a number of segments. Comparing to tessellation, this method saves more memory and is more efficient to construct and compute. 
+  
+![](imgs/grass-construction.gif)
+  
+The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade.
+  
+![](imgs/grassIntro.gif)
+  
+Similar to how wind is applied, the interaction bending is applied with the scaled rotation matrix with respect to the distance of the device and grass
+  
+![](imgs/grass.gif)
+  
 ## GPU-based L-system
 We implement our L-system generation process based on the paper [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf). Unlike the paper which uses CUDA to implement the L-System, we are using Unity with its compute shader for generation. The implementation can be broken down to three parts:<br>
 * L-System Derivation : Turn the axiom string to a derived string based on selected rulesets
@@ -57,7 +70,9 @@ After we get all the strings from derivation, we will then run:<br>
 ## Performance Analysis
 
 ### Grass Performance
-
+![](imgs/fpsGrass.png)
+  
+![](imgs/gpuGrass.png)  
 ### L-System Performance
 
 ### Overall Performance
@@ -74,6 +89,6 @@ After we get all the strings from derivation, we will then run:<br>
 [Final Presentation]()
 
 ## Blooper
-"May the force be with you"
+"May the force be with you" 
   
 ![](imgs/interactBlooper.gif)  
