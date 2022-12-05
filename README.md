@@ -35,4 +35,4 @@ ARCreation, or ARC, is proposed to be an application for adding procedural eleme
 ## Blooper
 "May the force be with you"
   
-![](imgs/interact blooper.gif)  
+![](imgs/interactBlooper.gif)  
