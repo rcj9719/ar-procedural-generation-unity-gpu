@@ -4,8 +4,8 @@
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Final Project**
 
 * Guanlin Huang
-* [LinkedIn](https://www.linkedin.com/in/guanlin-huang-4406668502/), [personal website](virulentkid.github.io/personal_web/index.html)
-* Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730
+ * [LinkedIn](https://www.linkedin.com/in/guanlin-huang-4406668502/), [personal website](virulentkid.github.io/personal_web/index.html)
+ * Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730
 
 * Rhuta Joshi
 
@@ -30,4 +30,6 @@ ARCreation, or ARC, is proposed to be an application for adding procedural eleme
 ## Future Work
 
 ## Credits
-* [Grass Shader](https://roystan.net/articles/grass-shader/) 
+* [Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
+
+## Blooper 
