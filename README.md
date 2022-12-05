@@ -43,14 +43,14 @@ We implement our L-system generation process based on the paper [Parallel Genera
 * Rendering: render all the items in the array to the scene
 
 ### L-System Derivation&Interpretation
-![Image with How Derive Work](imgs/scan.png)<br>
+![Image with How Derive Work](imgs/scan.PNG)<br>
 Before the derivation starts, there will be a preparation step where every customized rulesets will be loaded into the script, and the compute shader will know what each character will derive into. 
 In the derivation process, each thread will take care of each character in the string, and a prefix sum scan function is used to calculate the total length of the new derived string. Because Compute Shader does not accept character, we are converting character to ASCII code to make sure the dispatch of compute shader goes smoothly. <br>
 In each iteration of derivation(L-System might go many iterations), we will first use the scan function to examine the total string length of next iteration's derived string, then we use the prefix sum array to identify the derived characters' indices in the new string. A new string will be generated after this step.<br>
 Our scan function can deal with 512*512 = 262144 elements for each L-System, and it is sufficient for this project and basically the most complex L-system generation.<br>
 
 
-![Image With how Interpret Work](imgs/interpret.png)<br>
+![Image With how Interpret Work](imgs/interpret.PNG)<br>
 This is the paper's approach to the interpretation, but after careful thinking we decide to use a 1D linked list to help finish the interpretation in a simpler fashion.<br>
 After we get all the strings from derivation, we will then set data for:<br>
 * SymbolBuffer: A compute buffer that identify if each character is a symbol(Something to draw) or not
