@@ -2,6 +2,7 @@
 #define GRASSBLADES_INCLUDED
 
 // Include some helper functions
+
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #include "NMGGrassBladeGraphicsHelpers.hlsl"
 
@@ -66,7 +67,7 @@ half4 Fragment(VertexOutput input) : SV_Target {
 
     // The URP simple lit algorithm
     // The arguments are lighting input data, albedo color, specular color, smoothness, emission color, and alpha, and normalTS (tangent space)
-    return UniversalFragmentBlinnPhong(lightingInput, albedo, 1, 0, 0, 1, half3(0, 0, 1));
+    return UniversalFragmentBlinnPhong(lightingInput, albedo, 1, 0.3, 0.3, 0.9, half3(0, 1, 0));
 }
 
 #endif

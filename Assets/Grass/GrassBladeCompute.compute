@@ -58,6 +58,11 @@ float _WindTimeMult;
 float _WindTexMult;
 float _WindPosMult;
 float _WindAmplitude;
+
+// Interactor
+float _InteractorRadius, _InteractorStrength;
+uniform float3 _InteractorPosWS;
+
 // Camera and LOD values
 float3 _CameraLOD;
 float4 _CameraPosition;
@@ -109,16 +114,32 @@ float3 GetWindAxis(float3 positionWS, float3 normalWS) {
     return cross(normalWS, float3(windNoise.x, 0, windNoise.y));
 }
 
+float3 GetInteractorAxis(float3 positionWS, float3 normalWS) {
+    float3 interactorToBlade = _InteractorPosWS - positionWS;
+    return cross(normalWS, interactorToBlade);
+}
+
+bool IsInInteractingRadius(float3 positionWS, float3 normalWS) {
+    if (abs(length(_InteractorPosWS - positionWS)) > _InteractorRadius)
+        return false;
+    else
+        return true;
+}
+
 // Calculate the tangent to world matrix for a point at the given V-coordinate
-float3x3 FigureTransformationForHeight(float v, float3x3 twistMatrix, float3x3 tsToWs, float maxBend, float3 windAxis) {
+float3x3 FigureTransformationForHeight(float3 positionWS, float3 normalWS, float v, float3x3 twistMatrix, float3x3 tsToWs, float maxBend, float3 windAxis, float3 interactorAxis) {
     // The bend amount increases towards the tip
     // Higher _BladeCurvature values cause the tip to bend more harshly
     float3x3 bendMatrix = AngleAxis3x3(maxBend * pow(v, _BladeCurvature), float3(1, 0, 0));
     // The rotation due to wind is higher closer to the tip
     float3x3 windMatrix = AngleAxis3x3(_WindAmplitude * v, windAxis);
-    // Remember rotation is applies from left to right
-    // Bend, then twist, then convert to world space, then apply wind
-    return mul(windMatrix, mul(tsToWs, mul(twistMatrix, bendMatrix)));
+
+    float3x3 interactorMatrix = AngleAxis3x3(-_InteractorStrength * v, interactorAxis);
+    if (!IsInInteractingRadius(positionWS, normalWS))
+        return mul(windMatrix, mul(tsToWs, mul(twistMatrix, bendMatrix)));
+    // rotation is applied from left to right
+    // Bend, then twist, then convert to world space, then apply wind then interact
+    return mul(interactorMatrix, mul(windMatrix, mul(tsToWs, mul(twistMatrix, bendMatrix))));
 }
 
 // This function calculates values for the output point
@@ -137,7 +158,7 @@ DrawVertex SetupBladePoint(float3 anchorWS, float2 dimensions, float3x3 tsToWs, 
 }
 
 // The main kernel
-[numthreads(128, 1, 1)]
+[numthreads(256, 1, 1)]
 void Main(uint3 id : SV_DispatchThreadID) {
 
     // Return if every triangle has been processed
@@ -164,6 +185,7 @@ void Main(uint3 id : SV_DispatchThreadID) {
     float maxBend = rand(positionWS, 3) * PI * 0.5f * _MaxBendAngle;
 
     float3 windAxis = GetWindAxis(positionWS, normalWS);
+    float3 interactorAxis = GetInteractorAxis(positionWS, normalWS);
 
     int numBladeSegments = GetNumSegments(positionWS);
     // Create an array to hold blade points. This is why there is a set maximum number of segments
@@ -180,7 +202,7 @@ void Main(uint3 id : SV_DispatchThreadID) {
         // The u of the first vertex. It converges on 0.5 as the segment increases
         float u = 0.5 - (1 - v) * 0.5;
         // Calculate the final transform for this height
-        float3x3 transform = FigureTransformationForHeight(v, twistMatrix, tsToWs, maxBend, windAxis);
+        float3x3 transform = FigureTransformationForHeight(positionWS, normalWS, v, twistMatrix, tsToWs, maxBend, windAxis, interactorAxis);
 
         // Append the first vertex
         vertices[i * 2] = SetupBladePoint(positionWS, dimensions, transform, float2(u, v));
@@ -190,7 +212,7 @@ void Main(uint3 id : SV_DispatchThreadID) {
     }
 
     // Calculate the transform for the blade tip
-    float3x3 tipTransform = FigureTransformationForHeight(1, twistMatrix, tsToWs, maxBend, windAxis);
+    float3x3 tipTransform = FigureTransformationForHeight(positionWS, normalWS, 1, twistMatrix, tsToWs, maxBend, windAxis, interactorAxis);
     // Append the tip vertex
     vertices[numBladeSegments * 2] = SetupBladePoint(positionWS, dimensions, tipTransform, float2(0.5, 1));
 

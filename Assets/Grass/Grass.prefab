@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &301725716332646143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 301725716332646137}
+  - component: {fileID: 301725716332646142}
+  m_Layer: 0
+  m_Name: Grass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &301725716332646137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301725716332646143}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.3307927, y: 1.1566026, z: -0.6505244}
+  m_LocalScale: {x: 100, y: 0.3, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &301725716332646142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301725716332646143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d5c542fa19f124a8c3a988f4085bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceMesh: {fileID: 7629811779324647873, guid: 550453b7a5e97b34cb065ca9aead7759,
+    type: 3}
+  grassComputeShader: {fileID: 7200000, guid: 4e1de3d3ed6d81a4fa66897f36f81d98, type: 3}
+  material: {fileID: 2100000, guid: 05ff92b8544cd6a46a8603d290f55bc3, type: 2}
+  interactor: {fileID: 0}
+  affectStrength: 1.49
+  grassSettings:
+    maxSegments: 3
+    maxBendAngle: 0.49
+    bladeCurvature: 1.07
+    bladeHeight: 0.2
+    bladeHeightVariance: 0.05
+    bladeWidth: 0.03
+    bladeWidthVariance: 0
+    windNoiseTexture: {fileID: 2800000, guid: 9e9667e8a4ecf1a40987729c7322158a, type: 3}
+    windTextureScale: 0.3
+    windPeriod: 0.5
+    windScale: 0.54
+    windAmplitude: 0.1
+    cameraLODMin: 3
+    cameraLODMax: 30
+    cameraLODFactor: 1

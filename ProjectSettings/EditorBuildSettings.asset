@@ -4,7 +4,22 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Grass/Grass.unity
+    guid: 707fbb0673002fa47b0996021f0e02ee
+  - enabled: 0
+    path: Assets/Scenes/LSystemScene.unity
+    guid: c45980a0c79e62f4ea9d281802861b58
+  - enabled: 0
+    path: Assets/Scenes/Dragging.unity
+    guid: d66c24755d85872488c26f17e3ba5e75
+  - enabled: 1
+    path: Assets/Scenes/ARCScene.unity
+    guid: da5bb5b7d88bed9488043b1dbac3cec6
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

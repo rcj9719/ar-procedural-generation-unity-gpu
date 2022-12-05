@@ -8,10 +8,9 @@ public static class Vector2Extension
     // Ref link: Dilmer Valecillos - https://www.youtube.com/watch?v=NdrvihZhVqs
     public static bool IsPointOverUIObject(this Vector2 touchPosition)
     {
-        if (EventSystem.current.IsPointerOverGameObject()) { 
-            return false; 
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return true; 
         }
-
         PointerEventData eventPosition = new PointerEventData(EventSystem.current);
         eventPosition.position = new Vector2(touchPosition.x, touchPosition.y);
 

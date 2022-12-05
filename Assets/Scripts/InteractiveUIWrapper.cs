@@ -9,38 +9,46 @@ public class InteractiveUIWrapper : MonoBehaviour
 {
 
     public Button clearAllButton;
-    public TMP_Dropdown generationDropdown;
-    //public Toggle showSurfaceToggle;
-    //public Toggle showARTextToggle;
-    //public Toggle occlusionToggle;
-    //public Toggle debugToggle;
+
+    public Toggle debugToggle;
+    public GameObject debugUI;
+
+    public Button grassButton;
+    public Button lSystemButton1;
+    public Button lSystemButton2;
+    public Button lSystemButton3;
+
+    public GameObject grassButtonSelected;
+    public GameObject lSystemButtonSelected1;
+    public GameObject lSystemButtonSelected2;
+    public GameObject lSystemButtonSelected3;
 
     public UnityEvent clearAllEvent;
     public UnityEvent generationDropdownEvent;
-    
-    //public UnityEvent showSurfaceToggleEvent;
-    //public UnityEvent showARTextToggleEvent;
-    //public UnityEvent occlusionToggleEvent;
-    //public UnityEvent debugToggleEvent;
+    public UnityEvent generateGrassEvent;
+    public UnityEvent generateLSystem1Event;
+    public UnityEvent generateLSystem2Event;
+    public UnityEvent generateLSystem3Event;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log("********************** InteractiveUI 1 ****************************");
         clearAllButton.gameObject.SetActive(true);
-        generationDropdown.gameObject.SetActive(true);
-        //debugToggle.gameObject.SetActive(true);
+        grassButton.gameObject.SetActive(true);
+        lSystemButton1.gameObject.SetActive(true);
+        lSystemButton2.gameObject.SetActive(true);
+        lSystemButton3.gameObject.SetActive(true);
+        debugToggle.gameObject.SetActive(true);
     }
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
 
     public void clearAllButtonClicked()
     {
+        grassButtonSelected.SetActive(true);
+        lSystemButtonSelected1.SetActive(false);
+        lSystemButtonSelected2.SetActive(false);
+        lSystemButtonSelected3.SetActive(false);
+
         clearAllEvent.Invoke();
         Debug.Log("Objects Cleared");
     }
@@ -51,27 +59,53 @@ public class InteractiveUIWrapper : MonoBehaviour
         Debug.Log("Procedural generation object updated");
     }
 
-    //public void showSurfaceToggleUpdated()
-    //{
-    //    showSurfaceToggleEvent.Invoke();
-    //    Debug.Log("Surface Visibility Updated");
-    //}
+    public void grassClicked()
+    {
+        grassButtonSelected.SetActive(true);
+        lSystemButtonSelected1.SetActive(false);
+        lSystemButtonSelected2.SetActive(false);
+        lSystemButtonSelected3.SetActive(false);
 
-    //public void showARTextToggleUpdated()
-    //{
-    //    showARTextToggleEvent.Invoke();
-    //    Debug.Log("AR Text Visibility Updated");
-    //}
+        generateGrassEvent.Invoke();
+        Debug.Log("Generating Grass");
+    }
 
-    //public void occlusionUpdated()
-    //{
-    //    occlusionToggleEvent.Invoke();
-    //    Debug.Log("Occlusion Updated");
-    //}
-    //public void debugViewUpdated()
-    //{
-    //    debugToggleEvent.Invoke();
-    //    Debug.Log("Occlusion Updated");
-    //}
+    public void lSystemButton1Clicked()
+    {
+        grassButtonSelected.SetActive(false);
+        lSystemButtonSelected1.SetActive(true);
+        lSystemButtonSelected2.SetActive(false);
+        lSystemButtonSelected3.SetActive(false);
+
+        generateLSystem1Event.Invoke();
+        Debug.Log("Generating LSystem1");
+    }
+
+    public void lSystemButton2Clicked()
+    {
+        grassButtonSelected.SetActive(false);
+        lSystemButtonSelected1.SetActive(false);
+        lSystemButtonSelected2.SetActive(true);
+        lSystemButtonSelected3.SetActive(false);
+
+        generateLSystem2Event.Invoke();
+        Debug.Log("Generating LSystem2");
+    }
+    public void lSystemButton3Clicked()
+    {
+        grassButtonSelected.SetActive(false);
+        lSystemButtonSelected1.SetActive(false);
+        lSystemButtonSelected2.SetActive(false);
+        lSystemButtonSelected3.SetActive(true);
+
+        generateLSystem3Event.Invoke();
+        Debug.Log("Generating LSystem3");
+    }
+
+    public void debugViewUpdated()
+    {
+        debugUI.SetActive(!debugUI.activeSelf);
+        Debug.Log("Occlusion Updated");
+    }
 
 }

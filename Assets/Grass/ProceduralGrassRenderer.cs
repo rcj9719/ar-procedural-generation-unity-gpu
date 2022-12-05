@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class ProceduralGrassRenderer : MonoBehaviour
@@ -48,8 +49,13 @@ public class ProceduralGrassRenderer : MonoBehaviour
     [SerializeField] private ComputeShader grassComputeShader = default;
     [Tooltip("The material to render the grass mesh")]
     [SerializeField] private Material material = default;
-
+    
+    public GrassInteractor interactor = default;
+    [Header("Interactor")]
+    public float affectStrength = 1f;
+    
     [SerializeField] private GrassSettings grassSettings = default;
+    
 
     // The structure to send to the compute shader
     // This layout kind assures that the data is laid out sequentially
@@ -158,6 +164,8 @@ public class ProceduralGrassRenderer : MonoBehaviour
         instantiatedGrassComputeShader.SetFloat("_WindTimeMult", grassSettings.windPeriod);
         instantiatedGrassComputeShader.SetFloat("_WindPosMult", grassSettings.windScale);
         instantiatedGrassComputeShader.SetFloat("_WindAmplitude", grassSettings.windAmplitude);
+        instantiatedGrassComputeShader.SetFloat("_InteractorRadius", interactor.radius);
+        instantiatedGrassComputeShader.SetFloat("_InteractorStrength", affectStrength);
         instantiatedGrassComputeShader.SetVector("_CameraLOD",
             new Vector4(grassSettings.cameraLODMin, grassSettings.cameraLODMax, Mathf.Max(0, grassSettings.cameraLODFactor), 0));
 
@@ -241,7 +249,14 @@ public class ProceduralGrassRenderer : MonoBehaviour
         instantiatedGrassComputeShader.SetVector("_Time", new Vector4(0, Time.timeSinceLevelLoad, 0, 0));
         instantiatedGrassComputeShader.SetMatrix("_LocalToWorld", transform.localToWorldMatrix);
         instantiatedGrassComputeShader.SetVector("_CameraPosition", Camera.main.transform.position);
-
+        if (interactor != null)
+        {
+            instantiatedGrassComputeShader.SetVector("_InteractorPosWS", interactor.transform.position);
+        }
+        else
+        {
+            instantiatedGrassComputeShader.SetVector("_InteractorPosWS", Vector3.zero);
+        }
         // Dispatch the grass shader. It will run on the GPU
         instantiatedGrassComputeShader.Dispatch(idGrassKernel, dispatchSize, 1, 1);
 

@@ -1,0 +1,195 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Input
+#pragma kernel Derivation
+#pragma kernel calculateDepth
+#pragma kernel linkArray
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+//RWTexture2D<float4> Result;
+RWStructuredBuffer<int> _axiomLetters;
+//int _axiomLetters[100];
+//RWStructuredBuffer<int> _primaryLetters;
+//RWStructuredBuffer<int> _primaryLettersIdx;
+//RWStructuredBuffer<int> _derivedLetters;
+int _stringLength;
+int _primaryLetters[1000]; int _primaryLetterSize;
+int _primaryLettersIdx[1000]; int _primaryLettersIdxSize;
+int _derivedLetters[1000]; int _derivedLetterSize;
+
+
+RWStructuredBuffer<int> _preScanResBuffer;
+RWStructuredBuffer<int> _preScanCorBuffer;
+StructuredBuffer<int> _afterScanResBuffer;
+RWStructuredBuffer<int> _DeriveBuffer;
+
+RWStructuredBuffer<int3> _posBuffer;
+RWStructuredBuffer<int3> _oriBuffer;
+RWStructuredBuffer<int> _linkedBuffer;
+RWStructuredBuffer<int> _depthBuffer;
+
+
+[numthreads(1,1,1)]
+void Input (uint3 id : SV_DispatchThreadID)
+{
+    int cur = _axiomLetters[id.x];
+    int res = 1;
+    int corIdx = -1;
+    for (int i = 0; i < _primaryLetterSize; i++) {
+        if (_primaryLetters[i] == cur) {
+            if (i == _primaryLetterSize - 1) {
+                res = _derivedLetterSize - _primaryLettersIdx[i];
+            }
+            else {
+                res = _primaryLettersIdx[i + 1] - _primaryLettersIdx[i];
+            }
+            corIdx = i;
+        }
+    }
+    _preScanCorBuffer[id.x] = corIdx;
+    _preScanResBuffer[id.x] = res;
+}
+
+[numthreads(1,1,1)]
+void Derivation(uint3 id : SV_DispatchThreadID) 
+{
+    //actual derivation
+    int cur = _axiomLetters[id.x];
+    int curIdx = _afterScanResBuffer[id.x];
+    if (_preScanCorBuffer[id.x] != -1) {
+        int corIdx = _preScanCorBuffer[id.x];
+        int deriveIdxStart = _primaryLettersIdx[corIdx];
+        int deriveIdxEnd = corIdx == _primaryLetterSize - 1 ? _derivedLetterSize : _primaryLettersIdx[corIdx + 1];
+        if (id.x == 0) {//inclusive sum start from next idx
+            for (int i = 0; i < curIdx; i++) {
+                _DeriveBuffer[i] = _derivedLetters[deriveIdxStart++];
+            }
+        }
+        else {
+            for (int i = _afterScanResBuffer[id.x - 1]; i < curIdx; i++) {
+                _DeriveBuffer[i] = _derivedLetters[deriveIdxStart++];
+            }
+        }
+    }
+    else {
+        _DeriveBuffer[curIdx-1] = cur;
+    }
+}
+
+[numthreads(1,1,1)]
+void calculateDepth(uint3 id : SV_DispatchThreadID)
+{
+    int cur = _DeriveBuffer[id.x];
+    int3 pos = int3(0, 0, 0);
+    int3 ori = int3(0, 0, 0);
+    int depth = 0;
+    switch (cur) {
+        case 43:    // +
+            ori.x += 25;//25 means 25 degrees
+            break;
+        case 45:    // -
+            ori.x -= 25;
+            break;
+        case 42:    // *
+            ori.y += 25;
+            break;
+        case 47:    // division(/)
+            ori.y -= 25;
+            break;
+        case 38:    // &
+            ori.z += 25;
+            break;
+        case 94:    // ^
+            ori.z -= 25;
+            break;
+        case 91:    // [
+            depth = 1;
+            break;
+        case 93:    // ]
+            depth = -1;
+            break;
+        case 124:   // |
+            ori.y += 180;
+            break;
+        case 92:    // backslash(\)
+            ori.y -= 180;
+            break;
+        case 70:    // F
+            pos.y += 2;
+            break;
+        case 72:    // H
+            pos.y += 1;
+            break;
+        case 74:    //J
+            pos.y += 0;
+            break;
+        case 75:    //K
+            pos.y += 0;
+            break;
+        case 77:    //M
+            pos.y += 0;
+            break;
+        case 65:    // A
+            pos.y += 0;
+            break;
+        case 66:    // B
+            pos.y += 0;
+            break;
+        case 78:    //N
+            pos.y += 0;
+            break;
+        case 79:    //O
+            pos.y += 0;
+            break;
+        case 80:    //P
+            pos.y += 0;
+            break;
+        case 82:    //R
+            pos.y += 0;
+            break;
+        case 83:    //S
+            pos.y += 0;
+            break;
+        case 84:    //T
+            pos.y += 0;
+            break;
+        case 126:    // ~
+            ori.x += 45;//25 means 25 degrees
+            break;
+        case 33:    // !
+            ori.x -= 45;
+            break;
+        case 64:    // @
+            ori.y += 45;
+            break;
+        case 35:    // #
+            ori.y -= 45;
+            break;
+        case 36:    // $
+            ori.z += 45;
+            break;
+        case 37:    // %
+            ori.z -= 45;
+            break;
+    }
+    _posBuffer[id.x] = pos;
+    _oriBuffer[id.x] = ori;
+    _depthBuffer[id.x] = depth;
+}
+
+[numthreads(1,1,1)]
+void linkArray(uint3 id : SV_DispatchThreadID)
+{
+    //link step with depthBuffer and linkedBuffer
+    int cur = _depthBuffer[id.x];
+    if (id.x == 0) {
+        _linkedBuffer[id.x] = 0;
+    }
+    else {
+        int index = id.x-1;
+        while (index > 0 && _depthBuffer[id.x] < _depthBuffer[index]) {
+            index--;
+        }
+        _linkedBuffer[id.x] = index;
+    }
+}
