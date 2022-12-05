@@ -15,18 +15,37 @@
 Download and install the .APK file to your android device.
 
 ## Usage Instruction
-Tap the assets you want to "summon" on the bottom of this app, and then tap on the phone to create it. (maybe some img illustration)
+Tap the assets you want to "summon" at the bottom of this app, and then tap on the white-dotted area of the scene from your camera to create it.
+![](imgs/ui.png)  
 
 Overview
 ===========
 ARCreation, or ARC, is proposed to be an application for adding procedural elements to the real world view...
 
 ## Grass
-
+The grass is rendered through Unity Universal Render Pipeline shaders.
+  
+In order to have grass curvature and convincing grass movement, each blade of grass is divided into a number of segments. Comparing to tessellation, this method saves more memory and is more efficient to construct and compute. 
+  
+![](imgs/grass-construction.gif)
+  
+The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade.
+  
+![](imgs/grassIntro.gif)
+  
+Similar to how wind is applied, the interaction bending is applied with the scaled rotation matrix with respect to the distance of the device and grass
+  
+![](imgs/grass.gif)
+  
 ## GPU-based L-system
 
 ## Performance Analysis
 
+### Performance Notes on grass
+![](imgs/fpsGrass.png)
+  
+![](imgs/gpuGrass.png)  
+  
 ## Future Work
 
 ## Credits
