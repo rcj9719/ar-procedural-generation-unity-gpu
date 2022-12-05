@@ -7,9 +7,12 @@
 
 Overview
 ===========
-Project ARC is proposed to implement an application for adding procedural elements to the real world view. One hidden problem of procedural generation is its performance with large number of generations, and we intent to solve this with GPU. We have implemented grass and customized L-system in Unity and show it in AR with Unity AR Foundation.<br>
+Project ARC is proposed to implement an application for adding procedural elements to the real world view. One hidden problem of procedural generation is its performance with large number of generations, and we intent to solve this with GPU. We have implemented grass and customized L-system in Unity and show it in AR with Unity AR Foundation.   
 
-![Gif for how to use the app]()
+|Basic design of application|
+|---|
+|![](imgs/arc_milestone3.png)|
+
 
 ### Installation
 Download and install the .APK file to your android device. AR experiences on Android devices are driven by ARCore, which is available on [ARCore supported devices](https://developers.google.com/ar/devices). Ensure that your development device is compatible with AR. Alternatively, you can use a correctly configured AR-compatible Android Emulator instance.
@@ -18,10 +21,6 @@ Download and install the .APK file to your android device. AR experiences on And
 Tap the assets you want to see at the bottom of the screen, and then tap on the phone to create it. <br>
 
 [Video of usage demonstration here](https://linksharing.samsungcloud.com/hIEd5AV9jhCG)
-
-|Basic design of application|
-|---|
-|![](imgs/arc_milestone3.png)|
 
 ### Developer Notes
 
