@@ -82,7 +82,11 @@ public class LSystemGPU : MonoBehaviour
     private List<String> meshNameData = new List<string>();
     private Dictionary<String, MeshData> meshPosData = new Dictionary<string, MeshData>();
 
+<<<<<<< HEAD
     List<int> symbolList = new List<int>{70, 65, 66, 72, 74, 75, 77, 78, 79, 80, 82, 83, 84};
+=======
+    List<int> symbolList = new List<int>{70, 65,66, 72,74,75,77, 78, 79, 80, 82, 83, 84};
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
     int[] scanDepthRes;
     int[] linkRes;
     private int3[] posData;
@@ -121,9 +125,12 @@ public class LSystemGPU : MonoBehaviour
         //int sum = 70;
         switch (a)
         {
+<<<<<<< HEAD
             // ANGLES
 
             // Angle = 25 degrees
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case '+':
                 return 43;
             case '-':
@@ -136,6 +143,7 @@ public class LSystemGPU : MonoBehaviour
                 return 38;
             case '^':
                 return 94;
+<<<<<<< HEAD
 
             // Angle = 45 degrees
 
@@ -159,10 +167,13 @@ public class LSystemGPU : MonoBehaviour
                 return 92;
 
             // DEPTH
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case '[':
                 return 91;
             case ']':
                 return 93;
+<<<<<<< HEAD
 
             // FORWARD
             case 'F':
@@ -171,12 +182,27 @@ public class LSystemGPU : MonoBehaviour
                 return 72;
             
             // PREFABS
+=======
+            case '|':
+                return 124;
+            case '\'':
+                return 92;
+            case 'F':
+                return 70;
+            case 'A':
+                return 65;
+            case 'B':
+                return 66;
+            case 'H':
+                return 72;
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case 'J':
                 return 74;
             case 'K':
                 return 75;
             case 'M':
                 return 77;
+<<<<<<< HEAD
             case 'N':
                 return 78;
             case 'O':
@@ -196,6 +222,16 @@ public class LSystemGPU : MonoBehaviour
             case 'B':
                 return 66;
 
+=======
+            case '%':    // % instead of +
+                return 37;
+            case '$':    // $ instead of -
+                return 36;
+            case '!':    // ! instead of division(/)
+                return 33;
+            case '=':    // = instead of &
+                return 61;
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             default:
                 return 70;
 
@@ -207,7 +243,10 @@ public class LSystemGPU : MonoBehaviour
     {
         switch (num)
         {
+<<<<<<< HEAD
             // ELEMENTS TO DRAW
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case 70:
                 return "F";
             case 72:
@@ -218,6 +257,7 @@ public class LSystemGPU : MonoBehaviour
                 return "K";
             case 77:
                 return "M";
+<<<<<<< HEAD
             case 78:
                 return "N";
             case 79:
@@ -230,6 +270,8 @@ public class LSystemGPU : MonoBehaviour
                 return "S";
             case 84:
                 return "T";
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             default:
                 return "F";
         }

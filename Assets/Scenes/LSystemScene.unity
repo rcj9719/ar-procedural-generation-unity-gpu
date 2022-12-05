@@ -560,6 +560,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1181316129
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +680,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
 --- !u!1 &1996627649
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +760,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996627649}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+<<<<<<< HEAD
   m_LocalPosition: {x: 1, y: 0.2, z: -0}
+=======
+  m_LocalPosition: {x: 2.8, y: 0, z: -0}
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -959,6 +966,7 @@ MonoBehaviour:
   - {fileID: 3750738041043419636, guid: 8c2387eea7efcae4ba80582ba1077157, type: 3}
   - {fileID: 3750738041043419636, guid: 7b49afc9c8f014c4d917d3c0a40eae6e, type: 3}
   - {fileID: 1345174940100087554, guid: f8f2d76632e17ea489e8498c5bd16e47, type: 3}
+<<<<<<< HEAD
 --- !u!4 &6042652222224718833
 Transform:
   m_ObjectHideFlags: 0
@@ -1018,6 +1026,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
 --- !u!114 &6629637525308553232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,6 +1045,7 @@ MonoBehaviour:
   axiom: F
   ProceduralInstantiate: 0
   randomSize: 0
+<<<<<<< HEAD
   generations: 2
   rules:
   - predecessor: 70
@@ -1045,6 +1056,18 @@ MonoBehaviour:
   - {fileID: 3750738041043419636, guid: 7b49afc9c8f014c4d917d3c0a40eae6e, type: 3}
   - {fileID: 1345174940100087554, guid: f8f2d76632e17ea489e8498c5bd16e47, type: 3}
   - {fileID: 893778018660648962, guid: 6086fbe42ac84f34b828d39b2ab16e45, type: 3}
+=======
+  generations: 3
+  rules:
+  - predecessor: 70
+    successor: F[~HJ][!HJ][$HJ][%HJ]
+  - predecessor: 72
+    successor: '[~HJ][!HJ][$HJ][%HJ]'
+  meshPrefabs:
+  - {fileID: 1345174940100087554, guid: f8f2d76632e17ea489e8498c5bd16e47, type: 3}
+  - {fileID: 3750738041043419636, guid: 8c2387eea7efcae4ba80582ba1077157, type: 3}
+  - {fileID: 3750738041043419636, guid: 7b49afc9c8f014c4d917d3c0a40eae6e, type: 3}
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
 --- !u!1 &6629637525308553233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,12 +1079,20 @@ GameObject:
   - component: {fileID: 6629637525308553239}
   - component: {fileID: 6629637525308553232}
   m_Layer: 0
+<<<<<<< HEAD
   m_Name: LSystem2_mod
+=======
+  m_Name: LSystem4
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 0
+=======
+  m_IsActive: 1
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
 --- !u!4 &6629637525308553239
 Transform:
   m_ObjectHideFlags: 0
@@ -1071,7 +1102,11 @@ Transform:
   m_GameObject: {fileID: 6629637525308553233}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_LocalScale: {x: 2, y: 2, z: 2}
+=======
+  m_LocalScale: {x: 1, y: 1, z: 1}
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

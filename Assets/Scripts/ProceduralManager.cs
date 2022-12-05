@@ -30,6 +30,10 @@ public class ProceduralManager : MonoBehaviour
     public void GenerateGrass(Pose seedPose)
     {
         grassPrefab.GetComponent<ProceduralGrassRenderer>().interactor = grassInteractor;
+<<<<<<< HEAD
+=======
+        /*
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         // Implement Vines
         FeedbackTextUI.text = "GRASS" + seedPose.position;
 
@@ -47,7 +51,14 @@ public class ProceduralManager : MonoBehaviour
                 Instantiate(grassPrefab, GenerateRandomPosition(randomPosReference), Quaternion.Euler(0, 0, 0));
 
             }
+<<<<<<< HEAD
         }
+=======
+        }*/
+
+        //debug use
+        Instantiate(grassPrefab, seedPose.position, Quaternion.Euler(0, 0, 0));
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
     }
 
 }

@@ -84,10 +84,13 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
     int3 ori = int3(0, 0, 0);
     int depth = 0;
     switch (cur) {
+<<<<<<< HEAD
 
         // ANGLES
 
         // Angle = 25 degrees
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 43:    // +
             ori.x += 25;//25 means 25 degrees
             break;
@@ -106,6 +109,7 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
         case 94:    // ^
             ori.z -= 25;
             break;
+<<<<<<< HEAD
 
         // Angle = 45 degrees
         case 96:    // `
@@ -136,22 +140,36 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
             break;
 
         // DEPTH
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 91:    // [
             depth = 1;
             break;
         case 93:    // ]
             depth = -1;
             break;
+<<<<<<< HEAD
 
         // FORWARD
+=======
+        case 124:   // |
+            ori.y += 180;
+            break;
+        case 92:    // backslash(\)
+            ori.y -= 180;
+            break;
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 70:    // F
             pos.y += 2;
             break;
         case 72:    // H
             pos.y += 1;
             break;
+<<<<<<< HEAD
 
         // PREFABS
+=======
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 74:    //J
             pos.y += 0;
             break;
@@ -161,6 +179,15 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
         case 77:    //M
             pos.y += 0;
             break;
+<<<<<<< HEAD
+=======
+        case 65:    // A
+            pos.y += 0;
+            break;
+        case 66:    // B
+            pos.y += 0;
+            break;
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 78:    //N
             pos.y += 0;
             break;
@@ -179,6 +206,7 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
         case 84:    //T
             pos.y += 0;
             break;
+<<<<<<< HEAD
 
         // RULE SYMBOLS
         case 65:    // A
@@ -186,6 +214,25 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
             break;
         case 66:    // B
             pos.y += 0;
+=======
+        case 126:    // ~
+            ori.x += 45;//25 means 25 degrees
+            break;
+        case 33:    // !
+            ori.x -= 45;
+            break;
+        case 64:    // @
+            ori.y += 45;
+            break;
+        case 35:    // #
+            ori.y -= 45;
+            break;
+        case 36:    // $
+            ori.z += 45;
+            break;
+        case 37:    // %
+            ori.z -= 45;
+>>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             break;
     }
     _posBuffer[id.x] = pos;
