@@ -18,7 +18,10 @@ Download and install the .APK file to your android device. AR experiences on And
 Tap the assets you want to see at the bottom of the screen, and then tap on the phone to create it. <br>
 
 [Video of usage demonstration here](https://linksharing.samsungcloud.com/hIEd5AV9jhCG)
-![Image for Usage Instruction]()
+
+|Basic design of application|
+|---|
+|![](imgs/arc_milestone3.png)|
 
 ### Developer Notes
 
