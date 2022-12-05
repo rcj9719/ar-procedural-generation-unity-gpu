@@ -1,4 +1,4 @@
-# <div align="center"> ARCreation : AR Procedural Generation </div>
+# <div align="center"> ARC or ARCreation : AR app for procedural generation </div>
 
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Final Project**
 
@@ -8,6 +8,7 @@
 Overview
 ===========
 Project ARC is proposed to implement an application for adding procedural elements to the real world view. One hidden problem of procedural generation is its performance with large number of generations, and we intent to solve this with GPU. We have implemented grass and customized L-system in Unity and show it in AR with Unity AR Foundation.<br>
+
 ![Gif for how to use the app]()
 
 ### Installation
@@ -15,6 +16,8 @@ Download and install the .APK file to your android device. AR experiences on And
 
 ### Usage Instruction
 Tap the assets you want to see at the bottom of the screen, and then tap on the phone to create it. <br>
+
+[Video of usage demonstration here](https://linksharing.samsungcloud.com/hIEd5AV9jhCG)
 ![Image for Usage Instruction]()
 
 ### Developer Notes
@@ -56,7 +59,7 @@ We implement our L-system generation process based on the paper [Parallel Genera
 ### L-System Derivation and Interpretation
 
 Overall our workflow looks as follows:   
-![](imgs/gpu-lsystem-generation)   
+![](imgs/gpu-lsystem-generation.png)   
 
 Before the derivation starts, there will be a preparation step where every customized rulesets will be loaded into the script, and the compute shader will know what each character will derive into. 
 In the derivation process, each thread will take care of each character in the string, and a prefix sum scan function is used to calculate the total length of the new derived string. Because Compute Shader does not accept character, we are converting character to ASCII code to make sure the dispatch of compute shader goes smoothly. <br>
