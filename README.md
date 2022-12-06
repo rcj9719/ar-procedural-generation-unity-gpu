@@ -130,16 +130,14 @@ ARCore is Google's framework for building augmented reality experiences on smart
 [Final Presentation]()
 
 ## Blooper
-"May the force be with you" 
-  
+"May the force be with you"   
 ![](imgs/interactBlooper.gif)  
 
-"Grammatical mistakes"
-
+"Grammatical mistakes"   
 ![](imgs/blooper1.png)
 
-"Copy paste"
+"Copy paste"   
 ![](imgs/blooper2.png)
 
-"Reaching for the skies" or "Flying branches"
+"Reaching for the skies" or "Flying branches"   
 ![](imgs/blooper3.png)
