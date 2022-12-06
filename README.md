@@ -122,7 +122,8 @@ ARCore is Google's framework for building augmented reality experiences on smart
 * [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf)
 * [Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
 
-## Past Presentation
+## Presentation and other documentation
+[Project board, bug tracker and resources](https://cis-565-final-project.notion.site/Team-ARC-f8764bf740f6408ebb3c7bdedbad31f6)
 [Milestone 1 Presentation](https://docs.google.com/presentation/d/16BDfPikoMo0FX5iWDb8mwlZ5nQAJBaDj30A9Vw1sQ5o/edit#slide=id.p)<br>
 [Milestone 2 Presentation](https://docs.google.com/presentation/d/1iHksZZ4u2Z6-Yoie_S-0kXjdsAEHsFWQpKVJzvuKXFI/edit#slide=id.p)<br>
 [Milestone 3 Presentation](https://docs.google.com/presentation/d/1cWZAUilfjqYLi6OaeJzwCYyNQ0r6AfFJXVTBsvolfYg/edit#slide=id.g19cafe9bbc4_0_3)<br>
@@ -132,3 +133,13 @@ ARCore is Google's framework for building augmented reality experiences on smart
 "May the force be with you" 
   
 ![](imgs/interactBlooper.gif)  
+
+"Grammatical mistakes"
+
+![](imgs/blooper1.png)
+
+"Copy paste"
+![](imgs/blooper2.png)
+
+"Reaching for the skies" or "Flying branches"
+![](imgs/blooper3.png)
