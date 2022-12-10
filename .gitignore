@@ -75,3 +75,4 @@ crashlytics-build.properties
 
 # Others
 *DontShipItWithYourGame
+.DS_Store
