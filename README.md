@@ -2,7 +2,7 @@
 
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Final Project**
 
-* [Guanlin Huang](https://www.linkedin.com/in/guanlin-huang-4406668502/), [Shutong Wu](https://www.linkedin.com/in/shutong-wu-214043172/), [Rhuta Joshi]()
+* [Guanlin Huang](https://www.linkedin.com/in/guanlin-huang-4406668502/), [Shutong Wu](https://www.linkedin.com/in/shutong-wu-214043172/), [Rhuta Joshi](https://www.linkedin.com/in/rcj9719/)
  * Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730
 
 Overview
@@ -15,16 +15,27 @@ Project ARC is proposed to implement an application for adding procedural elemen
 
 
 ### Installation
-Download and install the .APK file to your android device. AR experiences on Android devices are driven by ARCore, which is available on [ARCore supported devices](https://developers.google.com/ar/devices). Ensure that your development device is compatible with AR. Alternatively, you can use a correctly configured AR-compatible Android Emulator instance.
+The app has not been released to the public on a mobile app store, but the code can be downloaded and built in Unity. Download and install the .APK file to your android device. AR experiences on Android devices are driven by ARCore, which is available on [ARCore supported devices](https://developers.google.com/ar/devices). Ensure that your development device is compatible with AR. Alternatively, you can use a correctly configured AR-compatible Android Emulator instance.
 
 ### Usage Instruction
-Tap the assets you want to see at the bottom of the screen, and then tap on the phone to create it. <br>
+
+The app allows you to select type of grass or procedurally generated trees you would like to place in the AR view. It works best in a larger area with some feature points where ARCore plane detection works well.
+1. Click on the `Show Panel` switch to view a panel with items to place.
+2. Scan the room till you see light white dots on the plane indicating surface detection.
+3. Once the surface is detected, you can tap anywhere on the plane to see the selected procedural item in AR view.
+4. You can also turn on the `Presets` where we provide some options to view a pre-set arrangement of trees, grass and plants arranged as a garden.
+5. An option to view some additional `Debug Info` is also provided
+6. At any time, you can use the clear screen option to reset and start over.
 
 [Video of usage demonstration here](https://linksharing.samsungcloud.com/hIEd5AV9jhCG)
 
-### Developer Notes
+### Developer Setup
 
-Developed using Unity 2021.3.13f1, version control system used during development - Plastic SCM
+Developed using Unity 2021.3.13f1. we recommend using Unity Hub.
+Clone this repo to your machine (optionally fork this repository if you plan on expanding on it).
+Open the project in Unity 2021.3.13f1, and open the 'ARCScene' scene (if it doesn't open automatically).
+Deploy to an [ARCore compatible device](https://developers.google.com/ar/discover/supported-devices).
+Version control system used during development - Plastic SCM
 
 ### Implementation contents
 
@@ -129,6 +140,11 @@ ARCore is Google's framework for building augmented reality experiences on smart
 * [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf)
 * [Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
 
+### Unity Free Asset Packs used include:
+- Stylized Hand Painted Nature Pack by BigRookGames
+- Hand Painted Flowers by Infinity3DGame
+
+
 ## Blooper
 "May the force be with you"   
 ![](imgs/interactBlooper.gif)  
@@ -141,3 +157,9 @@ ARCore is Google's framework for building augmented reality experiences on smart
 
 "Reaching for the skies" or "Flying branches"   
 ![](imgs/blooper3.png)
+
+
+
+Include AR setup steps or link to it in Unity
+Refer to balloon-pop for developer presentation
+Highlight UI elements
