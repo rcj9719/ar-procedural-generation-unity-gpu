@@ -49,6 +49,7 @@ The app allows you to select type of grass or procedurally generated trees you w
 
 ### Presentations and other documentation
 - [Project board, bug tracker and resources](https://cis-565-final-project.notion.site/Team-ARC-f8764bf740f6408ebb3c7bdedbad31f6)   
+- [Project Pitch](https://docs.google.com/presentation/d/19CZpP7CKG2L5rKTixmAmIi9_ogACH7zY3G-8qamP4r0/edit?usp=sharing)
 - [Milestone 1 Presentation](https://docs.google.com/presentation/d/16BDfPikoMo0FX5iWDb8mwlZ5nQAJBaDj30A9Vw1sQ5o/edit#slide=id.p)   
 - [Milestone 2 Presentation](https://docs.google.com/presentation/d/1iHksZZ4u2Z6-Yoie_S-0kXjdsAEHsFWQpKVJzvuKXFI/edit#slide=id.p)   
 - [Milestone 3 Presentation](https://docs.google.com/presentation/d/1cWZAUilfjqYLi6OaeJzwCYyNQ0r6AfFJXVTBsvolfYg/edit#slide=id.g19cafe9bbc4_0_3)   
