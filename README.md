@@ -31,12 +31,13 @@ The app allows you to select type of grass or procedurally generated trees you w
 
 ### Developer Setup
 
-Developed using Unity 2021.3.13f1. we recommend using Unity Hub.
-Clone this repo to your machine (optionally fork this repository if you plan on expanding on it).
-Open the project in Unity 2021.3.13f1, and open the 'ARCScene' scene (if it doesn't open automatically).
-Deploy to an [ARCore compatible device](https://developers.google.com/ar/discover/supported-devices).
-Version control system used during development - Plastic SCM
+- Developed using Unity 2021.3.13f1. we recommend using Unity Hub.
+- Clone this repo to your machine (optionally fork this repository if you plan on expanding on it).
+- Open the project in Unity 2021.3.13f1, and open the 'ARCScene' scene (if it doesn't open automatically).
+- Deploy to an [ARCore compatible device](https://developers.google.com/ar/discover/supported-devices).
+- Version control system used during development - Plastic SCM
 
+---  
 ### Implementation contents
 
 - [Grass](#grass)
@@ -47,62 +48,99 @@ Version control system used during development - Plastic SCM
 - [Integrating it with AR](#integrating-it-with-ar)
 
 ### Presentations and other documentation
-- [Project board, bug tracker and resources](https://cis-565-final-project.notion.site/Team-ARC-f8764bf740f6408ebb3c7bdedbad31f6)
-- [Milestone 1 Presentation](https://docs.google.com/presentation/d/16BDfPikoMo0FX5iWDb8mwlZ5nQAJBaDj30A9Vw1sQ5o/edit#slide=id.p)<br>
-- [Milestone 2 Presentation](https://docs.google.com/presentation/d/1iHksZZ4u2Z6-Yoie_S-0kXjdsAEHsFWQpKVJzvuKXFI/edit#slide=id.p)<br>
-- [Milestone 3 Presentation](https://docs.google.com/presentation/d/1cWZAUilfjqYLi6OaeJzwCYyNQ0r6AfFJXVTBsvolfYg/edit#slide=id.g19cafe9bbc4_0_3)<br>
-- [Final Presentation]()
+- [Project board, bug tracker and resources](https://cis-565-final-project.notion.site/Team-ARC-f8764bf740f6408ebb3c7bdedbad31f6)   
+- [Milestone 1 Presentation](https://docs.google.com/presentation/d/16BDfPikoMo0FX5iWDb8mwlZ5nQAJBaDj30A9Vw1sQ5o/edit#slide=id.p)   
+- [Milestone 2 Presentation](https://docs.google.com/presentation/d/1iHksZZ4u2Z6-Yoie_S-0kXjdsAEHsFWQpKVJzvuKXFI/edit#slide=id.p)   
+- [Milestone 3 Presentation](https://docs.google.com/presentation/d/1cWZAUilfjqYLi6OaeJzwCYyNQ0r6AfFJXVTBsvolfYg/edit#slide=id.g19cafe9bbc4_0_3)   
+- [Final Presentation](https://docs.google.com/presentation/d/1nhRvU-0dief0bP7L1LuMD3uFziOVkGfzeUahdgH2EHA/edit?usp=sharing)   
 
 Implementation
 ===========
 ## Grass
-The grass is rendered through Unity Universal Render Pipeline shaders.
-  
+The grass is rendered through Unity Universal Render Pipeline compute shaders.   
 In order to have grass curvature and convincing grass movement, each blade of grass is divided into a number of segments. Comparing to tessellation, this method saves more memory and is more efficient to construct and compute. 
+
+|Grass construction ([Image source](https://roystan.net/articles/grass-shader/)) |
+|---|
+|![](imgs/grass-construction.gif)|
   
-![](imgs/grass-construction.gif)
-  
-The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade.
-  
-![](imgs/grassIntro.gif)
-  
-Similar to how wind is applied, the interaction bending is applied with the scaled rotation matrix with respect to the distance of the device and grass
-  
-![](imgs/grass.gif)
-  
+The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade.   
+
+|Grass under noise based wind forces|
+|---|
+|![](imgs/grassIntro.gif)|
+
+The grass also interacts with the device camera. This means that when a user moves the device camera closer or further away from the grass, the grass bends interactively. Similar to how wind is applied, the interaction bending is applied with the scaled rotation matrix with respect to the distance of the device and grass.   
+
+|Grass interaction with device camera|
+|---|
+|![](imgs/grass.gif)|
+
+---
+
 ## GPU-based L-system
-We implement our L-system generation process based on the paper [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf). Unlike the paper which uses CUDA to implement the L-System, we are using Unity with its compute shader for generation. The implementation can be broken down to three parts:<br>
+We implement our L-system generation process based on the paper [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf). Unlike the paper which uses CUDA to implement the L-System, we are using Unity with its compute shader for generation. The implementation can be broken down to three parts:   
 * L-System Derivation : Turn the axiom string to a derived string based on selected rulesets
 * L-System Interpretation: Transform the string to a list of position/orientation/material array that we use to draw for each symbol
 * Rendering: render all the items in the array to the scene
 
 ### L-System Derivation and Interpretation
 
-Overall our workflow looks as follows:   
-![](imgs/gpu-lsystem-generation.png)   
+|Parallel Lsystem Generation Workflow used|
+|---|
+|![](imgs/gpu-lsystem-generation.png)|
 
-Before the derivation starts, there will be a preparation step where every customized rulesets will be loaded into the script, and the compute shader will know what each character will derive into. 
-In the derivation process, each thread will take care of each character in the string, and a prefix sum scan function is used to calculate the total length of the new derived string. Because Compute Shader does not accept character, we are converting character to ASCII code to make sure the dispatch of compute shader goes smoothly. <br>
-In each iteration of derivation(L-System might go many iterations), we will first use the scan function to examine the total string length of next iteration's derived string, then we use the prefix sum array to identify the derived characters' indices in the new string. A new string will be generated after this step.<br>
-Our scan function can deal with 512*512 = 262144 elements for each L-System, and it is sufficient for this project and basically the most complex L-system generation.<br>
+#### Stage 1: Preparation and loading
 
-![Image with How Derive Work](imgs/scan.PNG)<br>
+Before the derivation starts, there will be a preparation step where every customized rulesets will be loaded into the script, and the compute shader will know what each character will derive into.
 
-This is the paper's approach to the interpretation, but after careful thinking we decide to use a 1D linked list to help finish the interpretation in a simpler fashion.<br>
+Consider the following L-System Example:
+
+```
+AXIOM: FAA
+Rules:
+  F -> F[+F][-F]
+  A -> FF
+```
+
+The above rules get passed to the GPU in 2 buffers - the predecessor buffer and the successor buffer which are obtained by serially appending all grammar rules.
+
+```
+Predecessor Buffer: FA  // Concatenating the left side of all rules
+Successor Buffer: F[+F][-F]FF   // Concatenating the right side of all rules
+```
+
+#### Stage 2: Parallel Derivation - Expanding the string
+
+In the derivation process, each thread will take care of each character in the string, and a prefix sum scan function is used to calculate the total length of the new derived string. Because Compute Shader does not accept character, we are converting character to ASCII code to make sure the dispatch of compute shader goes smoothly.   
+In each iteration of derivation(L-System might go many iterations), we will first use the scan function to examine the total string length of next iteration's derived string, then we use the prefix sum array to identify the derived characters' indices in the new string. A new string will be generated after this step.   
+Our scan function can deal with 512*512 = 262144 elements for each L-System, and it is sufficient for this project and basically the most complex L-system generation.   
+
+| Derivation example from Base Paper | Understanding our example |
+|---|---|
+|![Image with How Derive Work](imgs/scan.PNG)|![](imgs/lsystemderivation1.png)|
+
+
+#### Stage 3: Parallel Interpretation - Positioning & branching based on expanded string
+
+This is the paper's approach to the interpretation, but after careful thinking we decide to use a 1D linked list to help finish the interpretation in a simpler fashion.   
 After we get all the strings from derivation, we will then set data for:<br>
 * SymbolBuffer: A compute buffer that identify if each character is a symbol(Something to draw) or not
 * DepthBuffer: A compute buffer that identify each character's depth
 * PosBuffer/OriBuffer: A kernel that identify the position/orientation vector that the character might change to the next character<br>
 
-![Image With how Interpret Work](imgs/interpret.PNG)<br>
+| Interpretation example from Base Paper | Our Linked List based implementation |
+|---|---|
+|![Image With how Interpret Work](imgs/interpret.PNG)|![](imgs/lsysteminterpretation1.png)|
 
-Then after a prefix sum scan of the Depth buffer and Pos/Ori Buffer, we will then set data for LinkedBuffer, where each index will store its parent's index. This solves the hardest problem when constructing L-system, which is to have every symbol to have its predecessor's data.<br>
-Then we will iterate through the array, fetching all the symbols that need to be draw and their local coordinates. The interpretation marks complete up to this point.
+Then after a prefix sum scan of the Depth buffer and Pos/Ori Buffer, we will then set data for LinkedBuffer, where each index will store its parent's index. This solves the hardest problem when constructing L-system, which is to have every symbol to have its predecessor's data.   
+Finally we iterate through the array, fetching all the symbols that need to be draw and their local coordinates. The interpretation marks complete up to this point.
 
 ### L-System Rendering
+
 ![Image with how rendering work](imgs/green1.png)<br>
 
-we have arranged two ways, one in CPU and one in GPU, to render L-System based on different needs.  
+We have implemented rendering in two ways, one in CPU and one in GPU, to render L-System based on different needs.  
 For CPU, we simply instantiate the gameobject we have for each symbol and under not complex scenes their performance is relatively acceptive. The point of keeping this is for debugging and to compare its performance against GPU rendering in terms of simple to not very complex(below 100 L-system) scene.  
 For GPU, we originally passed the mesh/vertex/triangles information to vertex shader and run a shader file to render this at runtime; but during search we find Unity have a DrawProcedural and DrawMesh function, where we can let GPU render mesh at giving world coordinates at runtime, so we also implement this rendering procedure.
 
@@ -111,13 +149,18 @@ For GPU, we originally passed the mesh/vertex/triangles information to vertex sh
 
 ## Integrating it with AR
 
+Setting up AR environment included a bunch of steps elaborately explained in [Google documentation here.](https://developers.google.com/ar/develop/unity-arf/getting-started-ar-foundation)
+Considering future scope of the project, we have also set up ARCore extensions as [documented here.](https://developers.google.com/ar/develop/unity-arf/getting-started-extensions)
+
 ARCore is Google's framework for building augmented reality experiences on smartphones. We are using Unity's AR Foundation to build this application. We need to take care of two things - detecting surfaces/planes and placing objects in real world scene based on user interaction like tap or dragging on screen. This is mainly accomplished using the following:
 
 1. ARPlaneManager - An ARPlaneManager detects ARPlanes and creates, updates, and removes game objects when the device's understanding of the environment changes.
 2. ARRaycastManager - An ARRaycastManager exposes raycast functionality in which we shoot a ray from the screen coordinates of our tap into the real world detected and we store the intersection points as hit points. Refer to the image shown below taken from Google Cdoelabs.
 3. ARAnchorManager - ARAnchorManager is used to track elements (gameobjects) in the real world. In our application, we are tracking each lsystem that the user places so that we can interact with them better and befause we want to anchor and orient them correctly along the plane detected. The number of anchors can be reduced since they are resource-intensive. 
 
-![Image Credits - Google Codelabs](imgs/hit-test-explanation.png)
+|ARRayCast Hit from touch point on screen|
+|---|
+|![Image Credits - Google Codelabs](imgs/hit-test-explanation.png)|
 
 ## Performance Analysis
  * Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730  
@@ -145,21 +188,12 @@ ARCore is Google's framework for building augmented reality experiences on smart
 - Hand Painted Flowers by Infinity3DGame
 
 
-## Blooper
-"May the force be with you"   
-![](imgs/interactBlooper.gif)  
+## Bloopers
 
-"Grammatical mistakes"   
-![](imgs/blooper1.png)
+|May the force be with you|
+|---|
+|![](imgs/interactBlooper.gif)|
 
-"Copy paste"   
-![](imgs/blooper2.png)
-
-"Reaching for the skies" or "Flying branches"   
-![](imgs/blooper3.png)
-
-
-
-Include AR setup steps or link to it in Unity
-Refer to balloon-pop for developer presentation
-Highlight UI elements
+|Grammatical mistakes|Copy paste|Reaching for the skies|
+|---|---|---|
+|![](imgs/blooper1.png)|![](imgs/blooper2.png)|![](imgs/blooper3.png)|
