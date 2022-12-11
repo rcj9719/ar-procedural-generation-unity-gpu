@@ -63,13 +63,13 @@ In order to have grass curvature and convincing grass movement, each blade of gr
 
 |Grass construction ([Image source](https://roystan.net/articles/grass-shader/)) |
 |---|
-|![](imgs/grass-construction.gif)|
+|<img src="imgs/grass-construction.gif" width="200" height="200"/>|
   
 The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade.   
 
 |Grass under noise based wind forces|
 |---|
-|![](imgs/grassIntro.gif)|
+|<img src="imgs/grassIntro.gif" width="600" height="400"/>|
 
 The grass also interacts with the device camera. This means that when a user moves the device camera closer or further away from the grass, the grass bends interactively. Similar to how wind is applied, the interaction bending is applied with the scaled rotation matrix with respect to the distance of the device and grass.   
 
