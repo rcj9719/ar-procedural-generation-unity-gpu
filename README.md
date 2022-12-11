@@ -146,6 +146,8 @@ For GPU, we originally passed the mesh/vertex/triangles information to vertex sh
 
 
 ### 2D Noise Procedural Generation
+We also implemented a noise procedural generation where you can generate these L-system trees with a certain probability. We can scale each tree's probability of appearance, their distances between other, and the boundary of the generation.  
+![Image of Noise Generation](imgs/noise.png)
 
 ## Integrating it with AR
 
