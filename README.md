@@ -58,14 +58,22 @@ The app allows you to select type of grass or procedurally generated trees you w
 Implementation
 ===========
 ## Grass
-The grass is rendered through Unity Universal Render Pipeline compute shaders.   
+The grass is rendered through Unity Universal Render Pipeline compute shaders, which can take in a single mesh shape as input, and generate other mesh as outputs. In this project, we decided to put a plane mesh as input, and for each vertex of that plane, we output a single triangle to represent a grass blade. To render those grass blades with decent color, we also need a fragment shader and interpolate between a base grass color and a tip grass color. The output should look like the following:
+  
+<img src="imgs/grassNonRand.png" width="600" height="400"/>
+  
+To make the grass more realistic,we want to change the height of the grass blades so that they do not look too triangle-like. Next, we need randomly twist the grass blades so that they will not be facing the same direction; we also need to bend the grass to mimic gravity. To accomplish the transformational goals, the blade will first be defined in space close to the vertex emitting it, after which it will be transformed to be local to the mesh. We implemented tangent space to cope with this need.
+|Tangent Space ([Image source](https://en.wikipedia.org/wiki/Tangent_space#/media/File:Image_Tangent-plane.svg)) |
+|---|
+|<img src="imgs/tangentSpace.png" width="300" height="300"/>|
+
 In order to have grass curvature and convincing grass movement, each blade of grass is divided into a number of segments. Comparing to tessellation, this method saves more memory and is more efficient to construct and compute. 
 
 |Grass construction ([Image source](https://roystan.net/articles/grass-shader/)) |
 |---|
 |<img src="imgs/grass-construction.gif" width="200" height="200"/>|
   
-The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade.   
+The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade. Combining with some variance in blade shapes, the final result looks like this:  
 
 |Grass under noise based wind forces|
 |---|
