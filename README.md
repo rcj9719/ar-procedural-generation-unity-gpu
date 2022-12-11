@@ -65,7 +65,7 @@ The grass is rendered through Unity Universal Render Pipeline compute shaders, w
 To make the grass more realistic,we want to change the height of the grass blades so that they do not look too triangle-like. Next, we need randomly twist the grass blades so that they will not be facing the same direction; we also need to bend the grass to mimic gravity. To accomplish the transformational goals, the blade will first be defined in space close to the vertex emitting it, after which it will be transformed to be local to the mesh. We implemented tangent space to cope with this need.
 |Tangent Space ([Image source](https://en.wikipedia.org/wiki/Tangent_space#/media/File:Image_Tangent-plane.svg)) |
 |---|
-|<img src="imgs/tangentSpace.png"/>|
+|<img src="imgs/tangentSpace.png" width="300" height="250"/>|
 
 In order to have grass curvature and convincing grass movement, each blade of grass is divided into a number of segments. Comparing to tessellation, this method saves more memory and is more efficient to construct and compute. 
 
