@@ -196,9 +196,9 @@ The pressure on GPU caused by increasing the number grass blades shows why we wo
 We have compared two resources that are using different methods to generate L-System, one is using CPU to generate L-System entirely and one is our current work, which uses GPU to analysis the grammar and only use CPU to instantiate the gameobject in the last step.  
 For the sample to be compared with, we choose one of the L-System Bush written by Paul Bourke as a test case to pay tribute to his work on L-System. We will measure the time that take for them to generate different L-Systems.  
 
-<img src="imgs/bush.png" width="250" height="400"/>  
+![Paul Bourke Bush](./imgs/bush.PNG)  
 
-<img src="imgs/PA.png" width="600" height="300"/>   
+<img src="imgs/PA.png" width="700" height="350"/>   
 
 The performance analysis above shows the different time taken for each method to generate the tree. At early iterations where there are only 100 or fewer symbols to draw, CPU/GPU takes similar time to generate and CPU is even faster in terms of milliseconds. But at later iterations where thousands of symbols will be drawn to the screen, time taken for CPU version is exponentially increasing and become slower than GPU version.  
 The reason of the time is that GPU's parallelism may not be fully used until the grammar is complex enough. But one problem with GPU and Unity's compute shader is that if the grammar is too complex and the whole derived string exceed the maximum length of string then GPU version would not work correctly. This will be a future upgrade if possible, but for now the current version could handle 262144 elements which is sufficient enough for most L-system trees.
