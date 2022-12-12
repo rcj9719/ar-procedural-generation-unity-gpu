@@ -190,12 +190,16 @@ The following graph shows how the number of grass blades will impact the framera
 <img src="imgs/fpsGrass.png" width="600" height="350"/>
   
 The pressure on GPU caused by increasing the number grass blades shows why we would have a 37600 grass blades limit. After reaching 32000 grass blades, or approximately covering 40M<sup>2</sup> of area, the GPU usage reaches a throttle at 95%. From 37600 blades and onwards, the device will sacrifice framerate in order to render the grass blades properly.
-<img src="imgs/gpuGrass.png" width="600" height="350"/> 
+<img src="imgs/gpuGrass.png" width="600" height="350"/>  
+
 ### L-System Performance CPU vs GPU
 We have compared two resources that are using different methods to generate L-System, one is using CPU to generate L-System entirely and one is our current work, which uses GPU to analysis the grammar and only use CPU to instantiate the gameobject in the last step.  
 For the sample to be compared with, we choose one of the L-System Bush written by Paul Bourke as a test case to pay tribute to his work on L-System. We will measure the time that take for them to generate different L-Systems.  
-![Paul Bourke Bush](./imgs/bush.PNG)  
-![PA](./imgs/PA.png)  
+
+<img src="imgs/bush.png" width="250" height="400"/>  
+
+<img src="imgs/PA.png" width="600" height="300"/>   
+
 The performance analysis above shows the different time taken for each method to generate the tree. At early iterations where there are only 100 or fewer symbols to draw, CPU/GPU takes similar time to generate and CPU is even faster in terms of milliseconds. But at later iterations where thousands of symbols will be drawn to the screen, time taken for CPU version is exponentially increasing and become slower than GPU version.  
 The reason of the time is that GPU's parallelism may not be fully used until the grammar is complex enough. But one problem with GPU and Unity's compute shader is that if the grammar is too complex and the whole derived string exceed the maximum length of string then GPU version would not work correctly. This will be a future upgrade if possible, but for now the current version could handle 262144 elements which is sufficient enough for most L-system trees.
 
