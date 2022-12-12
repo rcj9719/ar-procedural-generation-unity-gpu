@@ -1,13 +1,9 @@
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using System;
-//using UnityEngine.Scripting;
-//using System.Runtime.ConstrainedExecution;
-//using Unity.VisualScripting;
-//using Unity.VisualScripting.Dependencies.Sqlite;
-
 [Serializable]
 public struct GPURules
 {
@@ -21,11 +17,6 @@ public struct MeshData
     public Material mat;
     public string id;
     public GameObject referenceToObj;
-
-    /*public Vector3[] vertices;
-    public Vector3[] normals;
-    public Vector2[] uvs;
-    public int[] triangles;*/
 }
 
 [Serializable]
@@ -82,15 +73,11 @@ public class LSystemGPU : MonoBehaviour
     private List<String> meshNameData = new List<string>();
     private Dictionary<String, MeshData> meshPosData = new Dictionary<string, MeshData>();
 
-<<<<<<< HEAD
-    List<int> symbolList = new List<int>{70, 65, 66, 72, 74, 75, 77, 78, 79, 80, 82, 83, 84};
-=======
-    List<int> symbolList = new List<int>{70, 65,66, 72,74,75,77, 78, 79, 80, 82, 83, 84};
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
+    List<int> symbolList = new List<int>{70, 65, 66, 67, 68, 69, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87};
     int[] scanDepthRes;
     int[] linkRes;
-    private int3[] posData;
-    private int3[] oriData;
+    private float3[] posData;
+    private float3[] oriData;
 
 
     // Kernel Handles
@@ -103,7 +90,7 @@ public class LSystemGPU : MonoBehaviour
     int scanAddBucketResultKernel;
 
     #region LSystem
-    void readRules()
+    void readRules()//read the rule in Unity Editor
     {
         letterSize = axiom.Length;
 
@@ -125,12 +112,9 @@ public class LSystemGPU : MonoBehaviour
         //int sum = 70;
         switch (a)
         {
-<<<<<<< HEAD
             // ANGLES
 
             // Angle = 25 degrees
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case '+':
                 return 43;
             case '-':
@@ -143,7 +127,6 @@ public class LSystemGPU : MonoBehaviour
                 return 38;
             case '^':
                 return 94;
-<<<<<<< HEAD
 
             // Angle = 45 degrees
 
@@ -163,58 +146,60 @@ public class LSystemGPU : MonoBehaviour
             // Angle = 180 degrees about Y axis
             case '|':
                 return 124;
-            case '\'':
+            case '\\':
                 return 92;
 
             // DEPTH
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case '[':
                 return 91;
             case ']':
                 return 93;
-<<<<<<< HEAD
 
             // FORWARD
+            case 'C':
+                return 67;
+            case 'D':
+                return 68;
+            case 'E':
+                return 69;
             case 'F':
                 return 70;
+            case 'G':
+                return 71;
             case 'H':
                 return 72;
-            
+            case 'I':
+                return 73;
+
             // PREFABS
-=======
-            case '|':
-                return 124;
-            case '\'':
-                return 92;
-            case 'F':
-                return 70;
-            case 'A':
-                return 65;
-            case 'B':
-                return 66;
-            case 'H':
-                return 72;
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             case 'J':
                 return 74;
             case 'K':
                 return 75;
+            case 'L':
+                return 76;
             case 'M':
                 return 77;
-<<<<<<< HEAD
             case 'N':
                 return 78;
             case 'O':
                 return 79;
             case 'P':
                 return 80;
+            case 'Q':
+                return 81;
             case 'R':
                 return 82;
             case 'S':
                 return 83;
             case 'T':
                 return 84;
+            case 'U':
+                return 85;
+            case 'V':
+                return 86;
+            case 'W':
+                return 87;
 
             // RULE SYMBOLS
             case 'A':
@@ -222,16 +207,6 @@ public class LSystemGPU : MonoBehaviour
             case 'B':
                 return 66;
 
-=======
-            case '%':    // % instead of +
-                return 37;
-            case '$':    // $ instead of -
-                return 36;
-            case '!':    // ! instead of division(/)
-                return 33;
-            case '=':    // = instead of &
-                return 61;
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             default:
                 return 70;
 
@@ -243,35 +218,49 @@ public class LSystemGPU : MonoBehaviour
     {
         switch (num)
         {
-<<<<<<< HEAD
             // ELEMENTS TO DRAW
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
+            case 67:
+                return "C";
+            case 68:
+                return "D";
+            case 69:
+                return "E";
             case 70:
                 return "F";
+            case 71:
+                return "G";
             case 72:
                 return "H";
+            case 73:
+                return "I";
             case 74:
                 return "J";
             case 75:
                 return "K";
+            case 76:
+                return "L";
             case 77:
                 return "M";
-<<<<<<< HEAD
             case 78:
                 return "N";
             case 79:
                 return "O";
             case 80:
                 return "P";
+            case 81:
+                return "Q";
             case 82:
                 return "R";
             case 83:
                 return "S";
             case 84:
                 return "T";
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
+            case 85:
+                return "U";
+            case 86:
+                return "V";
+            case 87:
+                return "W";
             default:
                 return "F";
         }
@@ -432,7 +421,7 @@ public class LSystemGPU : MonoBehaviour
         return v;
     }
 
-    Vector3 rotateBranch(Vector3 pos, int3 ori)
+    Vector3 rotateBranch(Vector3 pos, float3 ori)
     {
         pos = rotateX(pos, ori.x * (float)Math.PI / 180);
         pos = rotateY(pos, ori.y * (float)Math.PI / 180);
@@ -477,28 +466,29 @@ public class LSystemGPU : MonoBehaviour
         computeShader.Dispatch(kernelLink, derivedSize, 1, 1);
 
         linkedBuffer.GetData(linkRes);
-        posData = new int3[derivedSize];
-        oriData = new int3[derivedSize];
+        posData = new float3[derivedSize];
+        oriData = new float3[derivedSize];
 
         posBuffer.GetData(posData);
         oriBuffer.GetData(oriData);
-
     }
     #endregion
 
     
-    void getDrawPositions(int derivedSize)
+    void getDrawPositions(int derivedSize)//translate the interpreted result to actual positions to draw in world coordinates
     {
         List<Vector3> posDataFloat = new List<Vector3>();
         for(int i = 0; i < posData.Length; i++)
         {
             posDataFloat.Add(new Vector3(posData[i].x, posData[i].y, posData[i].z));
         }
+        //Debug.Log(derivedSize);
 
         for (int i = 0; i < derivedSize; i++)
         {
             int cur = derivedResBuffer[i];
-
+            //Debug.Log(i);
+            //Debug.Log(cur);
             if (i == 0 && (symbolList.Contains(cur)))
             {
                 startPosList.Add(Vector3.zero);
@@ -507,7 +497,6 @@ public class LSystemGPU : MonoBehaviour
                 meshNameData.Add(asciiToString(cur));
                 continue;
             }
-
             int prevIdx = linkRes[i];
             oriData[i] += oriData[prevIdx];
             if (symbolList.Contains(cur))
@@ -542,51 +531,26 @@ public class LSystemGPU : MonoBehaviour
             newData.id = prefab1.name;
             newData.referenceToObj = prefab1;
             newData.mat = prefab1.GetComponent<MeshRenderer>().sharedMaterial;
-            meshPosData.Add(newData.id, newData);
-        }
-    }
-
-    void drawLines()
-    {
-        int currentLine = 0;
-        Material green = (Material)Resources.Load("Green", typeof(Material));
-        
-        for (int i = 0; i < startPosList.Count; i++)
-        {
-            var lineGo = new GameObject($"Line_{currentLine}");
-            lineGo.transform.position = Vector3.zero;
-            lineGo.transform.parent = transform;
-
-            LineRenderer newLine = lineGo.AddComponent<LineRenderer>();
-            newLine.positionCount = 2;
-            newLine.startWidth = 0.05f;
-            newLine.endWidth = 0.05f;
-            newLine.startColor = Color.green;
-            newLine.endColor = Color.green;
-            newLine.useWorldSpace = true;
-            newLine.positionCount = 2;
-            newLine.material = green;
-
-            newLine.SetPosition(0, this.transform.position + startPosList[i]);
-            newLine.SetPosition(1, this.transform.position + endPosList[i]);
-            currentLine++;
+            if (!meshPosData.ContainsKey(prefab1.name))
+            {
+                meshPosData.Add(newData.id, newData);
+            } else
+            {
+                Debug.LogError("A key with same name is already added");
+            }
         }
     }
 
     void drawInstantiate()
     {
-        //Debug.Log(meshNameData.Count);
         for(int i = 0; i < meshNameData.Count; i++) // for each characer in derived string
         {
             string curChar = meshNameData[i];
             MeshData meshD = meshPosData[meshNameData[i]];
-            //Debug.Log(startPosList[i].x + " " + startPosList[i].y + " " + startPosList[i].z);
-            //Debug.Log(endPosList[i].x + " " + endPosList[i].y + " " + endPosList[i].z);
             Quaternion qua = Quaternion.FromToRotation(endPosList[0] - startPosList[0], endPosList[i] - startPosList[i]);
-            GameObject newObj = Instantiate(meshD.referenceToObj, this.transform.position + (endPosList[i] - startPosList[i])/2 + startPosList[i] , qua);
-            newObj.transform.parent = this.transform;
 
-            //scaling part for AR goes downwards
+            GameObject newObj = Instantiate(meshD.referenceToObj, meshD.referenceToObj.transform.position + this.transform.position + (endPosList[i] - startPosList[i])/2 + startPosList[i] , qua);
+            newObj.transform.parent = this.transform;
         }
         this.transform.localScale = this.transform.localScale * 0.1f;
         if (randomSize)
@@ -598,39 +562,18 @@ public class LSystemGPU : MonoBehaviour
     {
         for (int i = 0; i < meshNameData.Count; i++)
         {
-            //Debug.Log("drawing");
-            //Debug.Log(i);
             MeshData meshD = meshPosData[meshNameData[i]];
             Quaternion qua = Quaternion.FromToRotation(endPosList[0] - startPosList[0], endPosList[i] - startPosList[i]);
-            //Debug.Log(materials[0]);
             Graphics.DrawMesh(meshD.mesh, startPosList[i] + (endPosList[i] - startPosList[i]) / 2 + this.transform.position, qua, meshD.mat, 0);
         }
     }
 
     //private void OnEnable() { 
-    void Awake() {
-        //// get compute kernel handles
-        //kernelInput = computeShader.FindKernel("Input");
-        //kernelDerivation = computeShader.FindKernel("Derivation");
-        //kernelDepth = computeShader.FindKernel("calculateDepth");
-        //kernelLink = computeShader.FindKernel("linkArray");
+    private void Start() {
 
-        /*//Debug.Log(Time.deltaTime);
-        //// Reads rules from inspector and sets required string buffers
-        readRules();
-        int derivedSize = derive();
-        //Debug.Log(derivedSize);
-        //With the new string, we will start on working the interpretation part.
-        interpret(derivedSize);
-
-        getDrawPositions(derivedSize);
-        draw();
-
-        destroy();
-        //Debug.Log(Time.deltaTime);*/
     }
 
-    private void Start()
+    void Awake()
     {
         // get compute kernel handles
         kernelInput = computeShader.FindKernel("Input");
@@ -656,25 +599,19 @@ public class LSystemGPU : MonoBehaviour
         {
             drawInstantiate();
         }
-
         destroy();
         Debug.Log("Time ended for L-system generation " + Time.realtimeSinceStartup);
     }
-
-    
 
     void Update()
     {
         //assume now we have startPos and endPos, along with the meshNameData, each with corresponding index; Also we have the meshDataMap which each string leads to a different meshData
 
         //the current idea is to for every mesh that we use, we will use Graphics.DrawMesh to draw it to the screen
-        //Debug.Log("start " +Time.realtimeSinceStartup);
         if (ProceduralInstantiate)
         {
             drawProcedural();
         }
-        //Debug.Log("end " + Time.realtimeSinceStartup);
-
     }
 
     private void destroy()
@@ -701,12 +638,6 @@ public class LSystemGPU : MonoBehaviour
         int scanAddBucketResultKernel = scanCS.FindKernel("ScanAddBucketResult");
         int[] output = new int[letterSize];
 
-        int[] output_tempres1 = new int[letterSize];
-        int[] output_tempaaux1 = new int[letterSize];
-        int[] output_tempres2 = new int[letterSize];
-        int[] output_tempaux2 = new int[letterSize];
-        int[] output_tempaux3 = new int[letterSize];
-
         int threads_per_group = 512;
 
         //int threadGroupCount = letterSize / threads_per_group == 0 ? 1 : letterSize / threads_per_group;
@@ -723,41 +654,21 @@ public class LSystemGPU : MonoBehaviour
         scanCS.SetBuffer(scanInBucketKernel, "_Result", resultBuffer);
         scanCS.Dispatch(scanInBucketKernel, threadGroupCount, 1, 1);
 
-        
-        resultBuffer.GetData(output_tempres1);
-        auxBuffer.GetData(output_tempaaux1);
-
         // ScanBucketResult.
         scanCS.SetBuffer(scanBucketResultKernel, "_Input", resultBuffer);
         scanCS.SetBuffer(scanBucketResultKernel, "_Result", auxBuffer);
         scanCS.Dispatch(scanBucketResultKernel, 1, 1, 1);
-
-        resultBuffer.GetData(output_tempres2);
-        auxBuffer.GetData(output_tempaux2);
 
         // ScanAddBucketResult.
         scanCS.SetBuffer(scanAddBucketResultKernel, "_Input", auxBuffer);
         scanCS.SetBuffer(scanAddBucketResultKernel, "_Result", resultBuffer);
         scanCS.Dispatch(scanAddBucketResultKernel, threadGroupCount, 1, 1);
         
-
         resultBuffer.GetData(output);
-
-        //Debug.LogError("#######################################" + output[0]);
-        //Debug.LogError("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + output[1]);
-        //auxBuffer.GetData(output_tempaux3);
         scanInputBuffer.Release();
         resultBuffer.Release();
         auxBuffer.Release();
 
         return output;
-        //if (c == 0) return output_tempres1;
-        //else return output;
-    }
-
-    public void getLines(ref List<Vector3> startPositions, ref List<Vector3> endPositions)
-    {
-        startPositions.AddRange(startPosList);
-        endPositions.AddRange(endPosList);
     }
 }

@@ -25,8 +25,6 @@ public class PlantClick: MonoBehaviour
             GameObject newGameObj = new GameObject("plant1");
             newGameObj.transform.position = point;
             newGameObj.AddComponent<LSystemGPU>();
-
-
         }
     }
 

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6151676826448754155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6151676826448754157}
+  - component: {fileID: 6151676826448754156}
+  m_Layer: 0
+  m_Name: LSystemGarden1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6151676826448754157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151676826448754155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.008934677, y: 0.28841448, z: -0.01196672}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6151676826448754156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151676826448754155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f00ee28519298439a7f0361bcd9e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectList:
+  - lSystemPrefab: {fileID: 2262556198284864772, guid: 1b4f7c828a2ad1c4da1663c7160d74d3,
+      type: 3}
+    position: {x: 1.36, y: 0, z: 0}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0
+  - lSystemPrefab: {fileID: 492202429978947658, guid: f27c0132313822c4ba4c29ff14d008da,
+      type: 3}
+    position: {x: -1.77, y: 0, z: 0}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0
+  - lSystemPrefab: {fileID: 6107271706117521874, guid: 9293fa4612543db49ad9255aa5abec55,
+      type: 3}
+    position: {x: 0, y: 0, z: 1.84}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0
+  - lSystemPrefab: {fileID: 3057984786255291392, guid: f0866d8d865506940bbf0e1f35c859e0,
+      type: 3}
+    position: {x: 1, y: 0, z: 1.84}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0
+  - lSystemPrefab: {fileID: 6674189168866931113, guid: 704d86fda6d88974ca7d28ece4826ce9,
+      type: 3}
+    position: {x: -0.5, y: 0, z: 1.74}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0
+  - lSystemPrefab: {fileID: 3379334258780647509, guid: 71013ddbae58a3246b2b7a34155465f7,
+      type: 3}
+    position: {x: 0, y: 0, z: 1.84}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0
