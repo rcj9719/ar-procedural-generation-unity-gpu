@@ -143,16 +143,26 @@ Finally we iterate through the array, fetching all the symbols that need to be d
 
 ### L-System Rendering
 
-![Image with how rendering work](imgs/green1.png)<br>
+![Image with how rendering work](imgs/green1.png)   
 
 We have implemented rendering in two ways, one in CPU and one in GPU, to render L-System based on different needs.  
 For CPU, we simply instantiate the gameobject we have for each symbol and under not complex scenes their performance is relatively acceptive. The point of keeping this is for debugging and to compare its performance against GPU rendering in terms of simple to not very complex(below 100 L-system) scene.  
 For GPU, we originally passed the mesh/vertex/triangles information to vertex shader and run a shader file to render this at runtime; but during search we find Unity have a DrawProcedural and DrawMesh function, where we can let GPU render mesh at giving world coordinates at runtime, so we also implement this rendering procedure.
 
 
-### 2D Noise Procedural Generation
+### 2D Noise Procedural Generation and preset garden views
 We also implemented a noise procedural generation where you can generate these L-system trees with a certain probability. We can scale each tree's probability of appearance, their distances between other, and the boundary of the generation.  
-![Image of Noise Generation](imgs/noise.PNG)
+
+|Arrangement based on noise function|
+|---|
+|![Image of Noise Generation](imgs/noise.PNG)|
+
+We have also provided an option for the users to view a pre-arranged set of procedural lsystem trees and grass to look like a garden.
+
+|Garden preset in Unity|Garden preset in AR|
+|---|---|
+|<img src="imgs/gardenPresetUnity.png" width="600" height="400"/>|<img src="imgs/gardenPreset.png" width="600" height="400"/>||
+
 
 ## Integrating it with AR
 
@@ -169,13 +179,6 @@ ARCore is Google's framework for building augmented reality experiences on smart
 |---|
 |![Image Credits - Google Codelabs](imgs/hit-test-explanation.png)|
 
-## Preset Garden Views
-
-We have also provided an option for the users to view a pre-arranged set of procedural lsystem trees and grass to look like a garden.
-
-|Garden preset in Unity|Garden preset in AR|
-|---|---|
-|<img src="imgs/gardenPresetUnity.png" width="600" height="400"/>|<img src="imgs/gardenPreset.png" width="600" height="400"/>||
 
 ## Performance Analysis
  * Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730  
