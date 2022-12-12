@@ -205,6 +205,10 @@ The reason of the time is that GPU's parallelism may not be fully used until the
 
 ### Overall Performance
 
+Finally, we placed multiple trees of a single grammar at different level of generations in AR, while also having interactive grass blades in scene, to determine the overall performance. We can observe that as the generations increase, there is an expected drop in framerate because of the increased number of characters in each generation, especially when number of items placed is high. Another possible reason for this drop, in spite of parallel generation of these lsystems is that this testing is performed where rendering of instances is done seqentially on CPU.
+
+![](imgs/overallPA.png)
+
 ## Credits
 * [Ned Makes Games: Blade Grass](https://www.youtube.com/watch?v=6SFTcDNqwaA&ab_channel=NedMakesGames)
 * [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf)
