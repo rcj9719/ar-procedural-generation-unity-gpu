@@ -235,7 +235,7 @@ Finally, we placed multiple trees of a single grammar at a different level of ge
 
 |May the force be with you|
 |---|
-|![](imgs/interactBlooper.gif)|
+|<img src="imgs/interactBlooper.gif" width="900" height="450"/>|
 
 |Grammatical mistakes|Copy paste|Reaching for the skies|
 |---|---|---|
