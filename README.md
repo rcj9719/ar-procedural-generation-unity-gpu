@@ -193,8 +193,6 @@ The performance analysis above shows the different time taken for each method to
 The reason of the time is that GPU's parallelism may not be fully used until the grammar is complex enough. But one problem with GPU and Unity's compute shader is that if the grammar is too complex and the whole derived string exceed the maximum length of string then GPU version would not work correctly. This will be a future upgrade if possible, but for now the current version could handle 262144 elements which is sufficient enough for most L-system trees.
 
 ### Overall Performance
- 
-## Future Work
 
 ## Credits
 * [Ned Makes Games: Blade Grass]([https://roystan.net/articles/grass-shader/](https://www.youtube.com/watch?v=6SFTcDNqwaA&ab_channel=NedMakesGames))
