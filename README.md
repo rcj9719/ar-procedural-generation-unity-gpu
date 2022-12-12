@@ -79,7 +79,7 @@ The grass also interacts with the device camera. This means that when a user mov
 
 |Grass under noise based wind forces|Grass interaction with device camera|
 |---|---|
-|<img src="imgs/grassIntro.gif" width="650" height="500"/>|<img src="imgs/grass2.gif" width="300" height="500"/>|
+|<img src="imgs/grassIntro.gif" width="600" height="450"/>|<img src="imgs/grass2.gif" width="270" height="450"/>|
 
 ---
 
