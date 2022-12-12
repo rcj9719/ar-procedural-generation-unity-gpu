@@ -194,7 +194,7 @@ The pressure on GPU caused by increasing the number grass blades shows why we wo
 
 ### L-System Performance CPU vs GPU
 We have compared two resources that are using different methods to generate L-System, one is using CPU to generate L-System entirely and one is our current work, which uses GPU to analysis the grammar and only use CPU to instantiate the gameobject in the last step.  
-For the sample to be compared with, we choose one of the L-System Bush written by Paul Bourke as a test case to pay tribute to his work on L-System. We will measure the time that take for them to generate different L-Systems.  
+For the sample to be compared with, we choose one of the [L-System Bush written by Paul Bourke](http://paulbourke.net/fractals/lsys/) as a test case to pay tribute to his work on L-System. We will measure the time that take for them to generate different L-Systems.  
 
 ![Paul Bourke Bush](./imgs/bush.PNG)  
 
@@ -213,6 +213,7 @@ Finally, we placed multiple trees of a single grammar at different level of gene
 * [Ned Makes Games: Blade Grass](https://www.youtube.com/watch?v=6SFTcDNqwaA&ab_channel=NedMakesGames)
 * [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf)
 * [Roystan: Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
+* [LSystem Ruleset](http://paulbourke.net/fractals/lsys/)
 
 ### Unity Free Asset Packs used include:
 - Stylized Hand Painted Nature Pack by BigRookGames
