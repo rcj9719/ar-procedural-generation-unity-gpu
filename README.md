@@ -187,9 +187,11 @@ ARCore is Google's framework for building augmented reality experiences on smart
 
 ### Grass Performance
 The following graph shows how the number of grass blades will impact the framerate on the mobile device; the maximum framerate on our tester device is 31 FPS. With 800 blades covering approximately 1 square meter (M<sup>2</sup>) of the real-world area, our App can cover up to 46M<sup>2</sup> of space, or 37600 blades of grass, without sacrificing framerate. 
+
 <img src="imgs/fpsGrass.png" width="600" height="350"/>
   
-The pressure on GPU caused by increasing the number of grass blades shows why we would have a 37600 grass blade limit. After reaching 32000 grass blades, or approximately covering 40M<sup>2</sup> of area, the GPU usage reaches a throttle at 95%. From 37600 blades onwards, the device will sacrifice framerate to render the grass blades properly.
+The pressure on GPU caused by increasing the number of grass blades shows why we would have a 37600 grass blade limit. After reaching 32000 grass blades, or approximately covering 40M<sup>2</sup> of area, the GPU usage reaches a throttle at 95%. From 37600 blades onwards, the device will sacrifice framerate to render the grass blades properly.   
+
 <img src="imgs/gpuGrass.png" width="600" height="350"/>  
 
 ### L-System Performance CPU vs. GPU
