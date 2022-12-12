@@ -48,7 +48,7 @@ public class ProceduralGrassRenderer : MonoBehaviour
     [Tooltip("The grass geometry creating compute shader")]
     [SerializeField] private ComputeShader grassComputeShader = default;
     [Tooltip("The material to render the grass mesh")]
-    [SerializeField] private Material material = default;
+    public Material material = default;
     
     public GrassInteractor interactor = default;
     [Header("Interactor")]
@@ -102,6 +102,8 @@ public class ProceduralGrassRenderer : MonoBehaviour
     {
         Debug.Assert(grassComputeShader != null, "The grass compute shader is null", gameObject);
         Debug.Assert(material != null, "The material is null", gameObject);
+
+        //Debug.LogError("[GrassRenderer.OnEnable]: rendering grass");
 
         // If initialized, call on disable to clean things up
         if (initialized)
@@ -232,6 +234,8 @@ public class ProceduralGrassRenderer : MonoBehaviour
     {
         // If in edit mode, we need to update the shaders each Update to make sure settings changes are applied
         // Don't worry, in edit mode, Update isn't called each frame
+        //Debug.LogError("[GrassRenderer.LateUpdate]: isApplicationPlaying: " + Application.isPlaying);
+
         if (Application.isPlaying == false)
         {
             OnDisable();
@@ -263,5 +267,7 @@ public class ProceduralGrassRenderer : MonoBehaviour
         // DrawProceduralIndirect queues a draw call up for our generated mesh
         Graphics.DrawProceduralIndirect(instantiatedMaterial, bounds, MeshTopology.Triangles, argsBuffer, 0,
             null, null, ShadowCastingMode.Off, true, gameObject.layer);
+        //Debug.LogError("[GrassRenderer.LateUpdate]: procedural draw called");
+
     }
 }

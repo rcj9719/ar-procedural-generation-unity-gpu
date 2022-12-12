@@ -23,8 +23,8 @@ RWStructuredBuffer<int> _preScanCorBuffer;
 StructuredBuffer<int> _afterScanResBuffer;
 RWStructuredBuffer<int> _DeriveBuffer;
 
-RWStructuredBuffer<int3> _posBuffer;
-RWStructuredBuffer<int3> _oriBuffer;
+RWStructuredBuffer<float3> _posBuffer;
+RWStructuredBuffer<float3> _oriBuffer;
 RWStructuredBuffer<int> _linkedBuffer;
 RWStructuredBuffer<int> _depthBuffer;
 
@@ -80,36 +80,32 @@ void Derivation(uint3 id : SV_DispatchThreadID)
 void calculateDepth(uint3 id : SV_DispatchThreadID)
 {
     int cur = _DeriveBuffer[id.x];
-    int3 pos = int3(0, 0, 0);
-    int3 ori = int3(0, 0, 0);
+    float3 pos = float3(0, 0, 0);
+    float3 ori = float3(0, 0, 0);
     int depth = 0;
     switch (cur) {
-<<<<<<< HEAD
 
         // ANGLES
 
         // Angle = 25 degrees
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 43:    // +
-            ori.x += 25;//25 means 25 degrees
+            ori.x += 22.5;//25 means 25 degrees
             break;
         case 45:    // -
-            ori.x -= 25;
+            ori.x -= 22.5;
             break;
         case 42:    // *
-            ori.y += 25;
+            ori.y += 22.5;
             break;
         case 47:    // division(/)
-            ori.y -= 25;
+            ori.y -= 22.5;
             break;
         case 38:    // &
-            ori.z += 25;
+            ori.z += 22.5;
             break;
         case 94:    // ^
-            ori.z -= 25;
+            ori.z -= 22.5;
             break;
-<<<<<<< HEAD
 
         // Angle = 45 degrees
         case 96:    // `
@@ -140,73 +136,79 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
             break;
 
         // DEPTH
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 91:    // [
             depth = 1;
             break;
         case 93:    // ]
             depth = -1;
             break;
-<<<<<<< HEAD
 
         // FORWARD
-=======
-        case 124:   // |
-            ori.y += 180;
+        case 67: //C
+            pos.y += 0.6;
             break;
-        case 92:    // backslash(\)
-            ori.y -= 180;
+        case 68: //D
+            pos.y += 1.5;
             break;
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
+        case 69:    // E
+            pos.y += 0.5;
+            break;
         case 70:    // F
+            pos.y += 2;
+            break;
+        case 71:    // G
             pos.y += 2;
             break;
         case 72:    // H
             pos.y += 1;
             break;
-<<<<<<< HEAD
+        case 73:    // I
+            pos.y += 2;
+            break;
 
         // PREFABS
-=======
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 74:    //J
-            pos.y += 0;
+            pos.y += 0.1;
             break;
         case 75:    //K
-            pos.y += 0;
+            pos.y += 0.5;
+            break;
+        case 76:    //L
+            pos.y += 0.5;
             break;
         case 77:    //M
-            pos.y += 0;
+            pos.y += 0.2;
             break;
-<<<<<<< HEAD
-=======
-        case 65:    // A
-            pos.y += 0;
-            break;
-        case 66:    // B
-            pos.y += 0;
-            break;
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
         case 78:    //N
-            pos.y += 0;
+            pos.y += 0.1;
             break;
         case 79:    //O
-            pos.y += 0;
+            pos.y += 0.1;
             break;
         case 80:    //P
-            pos.y += 0;
+            pos.y += 0.1;
+            break;
+        case 81:    //Q
+            pos.y += 0.1;
             break;
         case 82:    //R
-            pos.y += 0;
+            pos.y += 0.1;
             break;
         case 83:    //S
-            pos.y += 0;
+            pos.y += 0.1;
             break;
         case 84:    //T
-            pos.y += 0;
+            pos.y += 0.2;
             break;
-<<<<<<< HEAD
+        case 85:    //U
+            pos.y += 0.1;
+            break;
+        case 86:    //V
+            pos.y += 0.1;
+            break;
+        case 87:    //W
+            pos.y += 0.1;
+            break;
 
         // RULE SYMBOLS
         case 65:    // A
@@ -214,25 +216,6 @@ void calculateDepth(uint3 id : SV_DispatchThreadID)
             break;
         case 66:    // B
             pos.y += 0;
-=======
-        case 126:    // ~
-            ori.x += 45;//25 means 25 degrees
-            break;
-        case 33:    // !
-            ori.x -= 45;
-            break;
-        case 64:    // @
-            ori.y += 45;
-            break;
-        case 35:    // #
-            ori.y -= 45;
-            break;
-        case 36:    // $
-            ori.z += 45;
-            break;
-        case 37:    // %
-            ori.z -= 45;
->>>>>>> 139d5ac2882582a2b202bffc8b2db7901c68975c
             break;
     }
     _posBuffer[id.x] = pos;

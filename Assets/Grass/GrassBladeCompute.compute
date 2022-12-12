@@ -1,35 +1,33 @@
 #pragma kernel Main
-
-// Disable a warning about using a negative number in the pow
-// function. We ensure the number is positive in the renderer script
 #pragma warning (disable : 3571)
 
-// Import some helper functions
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "GrassComputeMath.hlsl"
 
-// Define the maximum number of blade segments and then the number of points required
 #define MAX_BLADE_SEGMENTS 5
 #define MAX_BLADE_POINTS MAX_BLADE_SEGMENTS * 2 + 1
 
-// This describes a vertex on the source mesh
+// What is contained in a source mesh's vertex
 struct SourceVertex {
     float3 positionOS; // Position in object space
 };
+
 // Source buffers, arranged as a vertex buffer and index buffer
 StructuredBuffer<SourceVertex> _SourceVertices;
 StructuredBuffer<int> _SourceTriangles;
 
-// This describes a vertex on the generated mesh
+// What is contained in a generated mesh's vertex
 struct DrawVertex {
     float3 positionWS; // The position in world space
     float height; // The height of this vertex on the grass blade
 };
+
 // A triangle on the generated mesh
 struct DrawTriangle {
     float3 lightingNormalWS; // A normal, in world space, to use in the lighting algorithm
     DrawVertex vertices[3]; // The three points on the triangle
 };
+
 // A buffer containing the generated mesh
 AppendStructuredBuffer<DrawTriangle> _DrawTriangles;
 
@@ -52,6 +50,7 @@ float _BladeHeight; // Maximum height of a blade
 float _BladeHeightVariance; // Variance of blade height
 float _BladeWidth; // Maximum blade width
 float _BladeWidthVariance; // Variance of blade width
+
 // Wind noise and multipliers
 TEXTURE2D(_WindNoiseTexture); SAMPLER(sampler_WindNoiseTexture);
 float _WindTimeMult;
@@ -66,6 +65,7 @@ uniform float3 _InteractorPosWS;
 // Camera and LOD values
 float3 _CameraLOD;
 float4 _CameraPosition;
+
 // Local to world matrix
 float4x4 _LocalToWorld;
 
@@ -95,30 +95,34 @@ void GetCenterAndBasis(SourceVertex a, SourceVertex b, SourceVertex c, out float
     GetTriangleNormalAndTSToWSMatrix(positionA_WS, positionB_WS, positionC_WS, normalWS, tsToWs);
 }
 
+// Calculate the blade width and height, applying random variance
 float2 GetBladeDimensions(float3 positionWS) {
-    // Calculate the blade width and height, applying random variance
     float width = randNegative1to1(positionWS, 0) * _BladeWidthVariance + _BladeWidth;
     float height = randNegative1to1(positionWS, 1) * _BladeHeightVariance + _BladeHeight;
     return float2(width, height);
 }
 
+// Calculate the wind axis which also encodes the wind strength
 float3 GetWindAxis(float3 positionWS, float3 normalWS) {
-    // Calculate the wind axis which also encodes the wind strength
     // The windUV is affected by the position's XZ world position and the time since scene load (_Time.y)
     float2 windUV = positionWS.xz * _WindPosMult + _Time.y * _WindTimeMult;
     windUV = windUV * _WindTexMult;
+
     // Sample the wind noise texture and remap to range between -1 and 1
     float2 windNoise = SAMPLE_TEXTURE2D_LOD(_WindNoiseTexture, sampler_WindNoiseTexture, windUV, 0).xy * 2 - 1;
+
     // We want to grass to blow by rotating in a direction perpendicular to it's normal
-    // cross will find one such vector. Since windNoise is not normalized, it also encodes some strength
+    // cross product of them will find one such vector
     return cross(normalWS, float3(windNoise.x, 0, windNoise.y));
 }
 
+// Calculate the axis to bend the grass blade 
 float3 GetInteractorAxis(float3 positionWS, float3 normalWS) {
     float3 interactorToBlade = _InteractorPosWS - positionWS;
     return cross(normalWS, interactorToBlade);
 }
 
+// Determine if the grass blade should bend or not
 bool IsInInteractingRadius(float3 positionWS, float3 normalWS) {
     if (abs(length(_InteractorPosWS - positionWS)) > _InteractorRadius)
         return false;
@@ -137,6 +141,7 @@ float3x3 FigureTransformationForHeight(float3 positionWS, float3 normalWS, float
     float3x3 interactorMatrix = AngleAxis3x3(-_InteractorStrength * v, interactorAxis);
     if (!IsInInteractingRadius(positionWS, normalWS))
         return mul(windMatrix, mul(tsToWs, mul(twistMatrix, bendMatrix)));
+    
     // rotation is applied from left to right
     // Bend, then twist, then convert to world space, then apply wind then interact
     return mul(interactorMatrix, mul(windMatrix, mul(tsToWs, mul(twistMatrix, bendMatrix))));

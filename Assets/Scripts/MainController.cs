@@ -10,11 +10,10 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using Unity.Burst.Intrinsics;
-//using UnityEditor.PackageManager;
+using UnityEngine.Rendering.UI;
 
 public struct Seed
 {
-    public ARAnchor seedAnchor;
     public Pose seedPose;
     public GameObject seedVis;
 }
@@ -29,7 +28,9 @@ public class MainController : MonoBehaviour
     /// </summary>
     public ARSession SessionCore;
     public List<GameObject> lSystems = new List<GameObject>();
-    public ProceduralManager ProceduralManager;
+    public GrassInteractor grassInteractor;
+    public GrassManager GrassManager;
+    public List<GameObject> gardens = new List<GameObject>();
 
     /// <summary>
     /// The active ARSessionOrigin
@@ -37,15 +38,21 @@ public class MainController : MonoBehaviour
     private ARSessionOrigin _sessionOrigin;
     private Camera _arCamera;
 
-    private bool onTouchHold = false;
-    private int lSystemNo = 0;
+    //private bool onTouchHold = false;
+    private int lSystemNo = -1;
+    private int gardenNo = -1;
     private GameObject seedPrefab;
+    private bool isAutomaticOn = false;
+    
     private GameObject placedObject;
+    private Dictionary<int, string> grassColor = new Dictionary<int, string>();
+
 
     /// <summary>
     /// The active ARAnchorManager
     /// </summary>
     private ARAnchorManager _anchorManager;
+    private ARTrackedObjectManager _trackedObjManager;
     private ARPlaneManager _planeManager;
     private ARRaycastManager _raycastManager;
     private List<ARRaycastHit> _hits;
@@ -57,7 +64,8 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// UI element to display <see cref="ARSessionState"/>.
     /// </summary>
-    public TextMeshProUGUI SessionState;
+    public TextMeshProUGUI DebuggingUIText;
+    public TextMeshProUGUI FeebackUIText;
 
     /// <summary>
     /// The Unity Awake() method.
@@ -69,35 +77,36 @@ public class MainController : MonoBehaviour
         if (_sessionOrigin == null)
         {
             Debug.LogError("Failed to find ARSessionOrigin.");
-            //UpdateFeedbackText("Failed to find ARSessionOrigin", error: true);
         }
 
         _anchorManager = GetComponent<ARAnchorManager>();
         if (_anchorManager == null)
         {
             Debug.LogError("Failed to find ARAnchorManager.");
-            //UpdateFeedbackText("Failed to find ARAnchorManager", error: true);
+        }
+
+        _trackedObjManager = GetComponent<ARTrackedObjectManager>();
+        if (_trackedObjManager == null)
+        {
+            Debug.LogError("Failed to find ARTrackedObjectManager.");
         }
 
         _planeManager = GetComponent<ARPlaneManager>();
         if (_planeManager == null)
         {
             Debug.LogError("Failed to find ARPlaneManager.");
-            //UpdateFeedbackText("Failed to find ARAnchorManager", error: true);
         }
 
         _raycastManager = GetComponent<ARRaycastManager>();
         if (_raycastManager == null)
         {
             Debug.LogError("Failed to find aRRaycastManager.");
-            //UpdateFeedbackText("Failed to find ARAnchorManager", error: true);
         }
 
         _arCamera = GameObject.Find("AR Camera").GetComponent<Camera>();
         if (_arCamera == null)
         {
             Debug.LogError("Failed to find arCamera.");
-            //UpdateFeedbackText("Failed to find ARAnchorManager", error: true);
         }
 
         GameObject thePlayer = GameObject.Find("InteractiveUIWrapper");
@@ -108,45 +117,11 @@ public class MainController : MonoBehaviour
         _hits = new List<ARRaycastHit>();
         _seeds = new List<Seed>();
         placedObject = null;
-    }
 
-    Seed CreateSeed(in ARRaycastHit hit)
-    {
-        Seed seed;
-        /*
-        // If we hit a plane, try to "attach" the anchor to the plane
-        if (hit.trackable is ARPlane plane)
-        {
-            var planeManager = GetComponent<ARPlaneManager>();
-            if (planeManager)
-            {
-                var oldPrefab = _anchorManager.anchorPrefab;
-                _anchorManager.anchorPrefab = seedPrefab;
-                seed.seedAnchor = _anchorManager.AttachAnchor(plane, hit.pose);
-                seed.seedPose = hit.pose;
-                seed.seedVis = new GameObject();
-                _anchorManager.anchorPrefab = oldPrefab;
+        grassColor[0] = "green";
+        grassColor[1] = "yellow";
+        grassColor[2] = "red";
 
-                Debug.Log($"Created anchor attachment for plane (id: {seed.seedAnchor.nativePtr}).");
-                return seed;
-            }
-        }
-        */
-        // Otherwise, just create a regular anchor at the hit pose
-
-        // Note: the anchor can be anywhere in the scene hierarchy
-        placedObject = Instantiate(seedPrefab, hit.pose.position, hit.pose.rotation);
-
-        // Make sure the new GameObject has an ARAnchor component
-        seed.seedAnchor = placedObject.GetComponent<ARAnchor>();
-        if (seed.seedAnchor == null)
-        {
-            seed.seedAnchor = placedObject.AddComponent<ARAnchor>();
-        }
-        Debug.Log($"Created regular anchor (id: {seed.seedAnchor.nativePtr}).");
-        seed.seedPose = hit.pose;
-        seed.seedVis = placedObject;
-        return seed;
     }
 
     // Update is called once per frame
@@ -160,29 +135,63 @@ public class MainController : MonoBehaviour
         var touchPosition = touch.position;
         bool isOverUI = touchPosition.IsPointOverUIObject();
 
-        if (_raycastManager.Raycast(touch.position, _hits))
+        if (_raycastManager.Raycast(touchPosition, _hits))
         {
-            if (!isOverUI && Input.GetTouch(0).phase == TouchPhase.Began && placedObject == null)
+            if (!isOverUI && touch.phase == TouchPhase.Began && placedObject == null)
             {
-                Ray ray = _arCamera.ScreenPointToRay(touch.position);
+                Ray ray = _arCamera.ScreenPointToRay(touchPosition);
+                ARRaycastHit hit = _hits[0];
+                Debug.Log("[MainController.Update] AR Hit Trackable: " + hit.trackable.name);
+                Debug.Log("[MainController.Update] AR Hit Type: " + hit.hitType);
+
                 RaycastHit hitObject;
                 if (Physics.Raycast(ray, out hitObject))
                 {
-                    Seed seed = CreateSeed(_hits[0]);
-                    if (lSystemNo == 0)
+                    Debug.Log("[MainController.Update] AR Hit Object: " + hitObject.collider.gameObject.name);
+                    if (isAutomaticOn)
                     {
-                        ProceduralManager.GenerateGrass(seed.seedPose);
+                        
                     }
-                    _seeds.Add(seed);
 
-                    SessionState.text = "No of Anchors: " + _seeds.Count;
+                    if (lSystemNo >= 0 && lSystemNo < lSystems.Count)
+                    {
+                        Seed seed;
+                        seed.seedPose = _hits[0].pose;
+                        if (lSystemNo >= 0 && lSystemNo < 3)
+                        {
+                            seed.seedVis = Instantiate(lSystems[lSystemNo]);
+                            GrassManager.GenerateGrass(ref seed, grassColor[lSystemNo]);
+                            
+                        }
+                        else
+                        {
+                            placedObject = Instantiate(seedPrefab, hit.pose.position, hit.pose.rotation);
+                            seed.seedVis = placedObject;
+                        }
+                        _seeds.Add(seed);
+                        DebuggingUIText.text = "Total no of items placed: " + _seeds.Count;
+                    }
+
+                    if (gardenNo >= 0 && gardenNo < gardens.Count)
+                    {
+                        Seed seed;
+                        seed.seedPose = _hits[0].pose;
+                        seed.seedVis = null;
+                        Debug.LogError("[Update] seed initialized to null");
+                        placedObject = Instantiate(seedPrefab, hit.pose.position, hit.pose.rotation);
+                        seed.seedVis = placedObject;
+                        GrassManager.GenerateGrass(ref seed, grassColor[gardenNo]);
+                        
+                        _seeds.Add(seed);
+                        DebuggingUIText.text = "Total no of items placed: " + _seeds.Count;
+                    }
                 }
             }
-            else if (Input.GetTouch(0).phase == TouchPhase.Moved && placedObject != null)
+            else if (touch.phase == TouchPhase.Moved && placedObject != null)
             {
                 placedObject.transform.position = _hits[0].pose.position;
             }
-            if (Input.GetTouch(0).phase == TouchPhase.Ended)
+            if (touch.phase == TouchPhase.Ended)
             {
                 placedObject = null;
             }
@@ -201,33 +210,47 @@ public class MainController : MonoBehaviour
         lSystemNo = 0;
         foreach (Seed seed in _seeds)
         {
+            Debug.LogError("[ClearAll] seed.name:" + seed.seedVis.name);
             Destroy(seed.seedVis.gameObject);
-            Destroy(seed.seedAnchor.gameObject);
         }
+        
         _seeds.Clear();
-        SessionState.text = "No of Anchors: " + _seeds.Count;
+        DebuggingUIText.text = "No of Trees: " + _seeds.Count;
     }
 
-    public void PlaceGrass()
+    public void PlaceLSystem(int lNo)
     {
-        lSystemNo = 0;
+        Debug.Log("[MainController.PlaceLSystem] LsystemNo: " + lNo);
+        lSystemNo = lNo;
+        gardenNo = -1;
+        if (lSystemNo > lSystems.Count)
+        {
+            Debug.LogError("Insuffienient prefabs initialized");
+        }
+        else
+        {
+            seedPrefab = lSystems[lSystemNo];
+        }
     }
 
-    public void PlaceLSystem1()
+    public void PlaceGarden(int lNo)
     {
-        lSystemNo = 1;
-        seedPrefab = lSystems[lSystemNo];
+        Debug.Log("[MainController.PlaceGarden] GardenNo: " + lNo);
+        gardenNo = lNo;
+        lSystemNo = -1;
+        if (gardenNo > gardens.Count)
+        {
+            Debug.LogError("Insuffienient prefabs initialized");
+        }
+        else
+        {
+            seedPrefab = gardens[gardenNo];
+        }
     }
 
-    public void PlaceLSystem2()
+    public void AutoPlacementLSystem(bool isOn)
     {
-        lSystemNo = 2;
-        seedPrefab = lSystems[lSystemNo];
-    }
-
-    public void PlaceLSystem3()
-    {
-        lSystemNo = 3;
-        seedPrefab = lSystems[lSystemNo];
+        isAutomaticOn = isOn;
+        Debug.LogError("[MainController.AutoPlacementLSystem] isAutomaticOn = " + isAutomaticOn);
     }
 }

@@ -12,15 +12,16 @@ public class NoiseGenerationItems
 }
 public class LSystemGenerator : MonoBehaviour
 {
-    public bool noiseGeneration = false;
     public int noisePlaneSize = 10;
+    public float randomizer = 1f;
+    public float scale = 1.0f;
     private float[,] planeTile;
     public List<NoiseGenerationItems> rules = new List<NoiseGenerationItems>();
 
     #region 2D Noise Generation
     float randomGenerateNumber()
     {
-        return UnityEngine.Random.Range(0.01f, 2.00f);
+        return UnityEngine.Random.Range(-randomizer, randomizer);
     }
 
     void noiseMapGenerate()
@@ -40,6 +41,7 @@ public class LSystemGenerator : MonoBehaviour
 
     void noiseGenerate()
     {
+        Vector3 offset = new Vector3(-noisePlaneSize / 2, 0, -noisePlaneSize / 2);
         //naive on3 for now
         for (int i = 0; i < noisePlaneSize; i++)
         {
@@ -51,8 +53,9 @@ public class LSystemGenerator : MonoBehaviour
                     {
                         if (planeTile[i,j] <= a.maxRange)
                         {
-                            Vector3 pos = new Vector3(i, 0, j);
-                            Instantiate(a.LSystemPrefab, pos, Quaternion.identity);
+                            Vector3 pos = new Vector3(i + randomGenerateNumber() , 0, j + randomGenerateNumber());
+                            pos += offset;
+                            Instantiate(a.LSystemPrefab, pos*scale, Quaternion.identity);
                         } else
                         {
                             continue;
@@ -69,10 +72,7 @@ public class LSystemGenerator : MonoBehaviour
 
     private void Awake()
     {
-        if (noiseGeneration)
-        {
-            noiseMapGenerate();
-        }
+        noiseMapGenerate();
     }
 
     #endregion
@@ -80,9 +80,6 @@ public class LSystemGenerator : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        if (noiseGeneration)
-        {
-            noiseGenerate();
-        }
+       noiseGenerate();
     }
 }

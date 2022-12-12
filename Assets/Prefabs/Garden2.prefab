@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7002417479056691522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7002417479056691524}
+  - component: {fileID: 7002417479056691523}
+  m_Layer: 0
+  m_Name: Garden2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7002417479056691524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7002417479056691522}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7002417479056691523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7002417479056691522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f00ee28519298439a7f0361bcd9e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 0.5
+  objectList:
+  - lSystemPrefab: {fileID: 621081547266261205, guid: fbea307c8d81df74eb093e433f358c6c,
+      type: 3}
+    position: {x: -4, y: 0, z: -1}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.5
+  - lSystemPrefab: {fileID: 621081547266261205, guid: fbea307c8d81df74eb093e433f358c6c,
+      type: 3}
+    position: {x: 3, y: 0, z: 4}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.5
+  - lSystemPrefab: {fileID: 9020483292241270554, guid: df031a2bb41ccc94fb86eee6857325b0,
+      type: 3}
+    position: {x: -3, y: 0, z: 3}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.5
+  - lSystemPrefab: {fileID: 9020483292241270554, guid: df031a2bb41ccc94fb86eee6857325b0,
+      type: 3}
+    position: {x: 3, y: 0, z: 0}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
+  - lSystemPrefab: {fileID: 492202429978947658, guid: f27c0132313822c4ba4c29ff14d008da,
+      type: 3}
+    position: {x: -4.5, y: 0, z: 0}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
+  - lSystemPrefab: {fileID: 492202429978947658, guid: f27c0132313822c4ba4c29ff14d008da,
+      type: 3}
+    position: {x: 2.5, y: 0, z: 1}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.5
+  - lSystemPrefab: {fileID: 492202429978947658, guid: f27c0132313822c4ba4c29ff14d008da,
+      type: 3}
+    position: {x: -2, y: 0, z: -1.5}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
+  - lSystemPrefab: {fileID: 6107271706117521874, guid: 9293fa4612543db49ad9255aa5abec55,
+      type: 3}
+    position: {x: 1, y: 0, z: -2}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
+  - lSystemPrefab: {fileID: 492202429978947658, guid: f27c0132313822c4ba4c29ff14d008da,
+      type: 3}
+    position: {x: -2, y: 0, z: -1.5}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
+  - lSystemPrefab: {fileID: 6107271706117521874, guid: 9293fa4612543db49ad9255aa5abec55,
+      type: 3}
+    position: {x: -3, y: 0, z: 2}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
+  - lSystemPrefab: {fileID: 3057984786255291392, guid: f0866d8d865506940bbf0e1f35c859e0,
+      type: 3}
+    position: {x: -4, y: 0, z: -1.5}
+    orientation: {x: 0, y: 0, z: 0, w: 0}
+    scale: 0.75
