@@ -221,10 +221,15 @@ Finally, we placed multiple trees of a single grammar at a different level of ge
 * [Roystan: Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
 * [LSystem Ruleset](http://paulbourke.net/fractals/lsys/)
 
-### Unity Free Asset Packs used include:
+### Unity free asset packs used include:
 - Stylized Hand Painted Nature Pack by BigRookGames
 - Hand Painted Flowers by Infinity3DGame
 
+### Acknowledgements
+1. Adam Mally - For brainstorming ideas on how L-systems can be parallelized & used
+2. Adam Norris - For discussing issues around surface detection & lighting in ARCore
+3. Akhilesh Joshi - For discussing problems faced by existing mesh based AR applications & suggesting user interaction ideas for AR
+4. Erik Minarini - For discussing their CPU based AR Procedural Ivy project and giving lead points
 
 ## Bloopers
 
