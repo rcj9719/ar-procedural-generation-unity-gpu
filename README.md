@@ -29,8 +29,6 @@ The App allows you to select a type of grass or procedurally generated trees you
 5. An option to view some additional `Debug Info` is also provided
 6. At any time, you can use the clear screen option to reset and start over.
 
-[Video of usage demonstration here](https://linksharing.samsungcloud.com/hIEd5AV9jhCG)
-
 ### Developer Setup
 
 - Developed using Unity 2021.3.13f1. We recommend using Unity Hub.
@@ -143,7 +141,9 @@ Finally, we iterate through the array, fetching all the symbols that need to be 
 
 ### L-System Rendering
 
-![Image with how rendering work](imgs/green1.png)   
+|L-System Example 1|L-System Example 2|L-System Example 3|
+|---|---|---|
+|<img src="imgs/2.png" width="250" height="300"/>|<img src="imgs/6.png" width="250" height="300"/>|<img src="imgs/11.png" width="250" height="300"/>|
 
 We have implemented rendering in two ways, one in CPU and one in GPU, to render L-System based on different needs.  
 For CPU, we instantiate the gameobject we have for each symbol, and their performance is relatively acceptive under not complex scenes. The point of keeping this is for debugging and comparing its performance against GPU rendering in simple to not very complicated (below 100 L-system) scenes.  
@@ -196,11 +196,15 @@ The pressure on GPU caused by increasing the number of grass blades shows why we
 We have compared two resources using different methods to generate L-System. One uses CPU to generate L-System entirely; the other is our current work, which uses GPU to analyze the grammar and only uses CPU to instantiate the gameobject in the last step.  
 For the sample to be compared with, we choose one of the [L-System Bush written by Paul Bourke](http://paulbourke.net/fractals/lsys/) as a test case to pay tribute to his work on L-System. We will measure the time that take for them to generate different L-Systems.  
 
-![Paul Bourke Bush](./imgs/bush.PNG)  
+|Paul Bourke Bush|
+|---|
+|<img src="imgs/bush.PNG" width="270" height="450"/>|
 
-<img src="imgs/PA.png" width="700" height="350"/>   
 
-The performance analysis above shows the different times each method uses to generate the tree. At early iterations with only 100 or fewer symbols to draw, CPU/GPU takes a similar time to generate, and the CPU is even faster in milliseconds. But at later iterations, where thousands of symbols will be drawn to the screen, the time taken for the CPU version is exponentially increasing and become slower than the GPU version.  
+The performance analysis below shows the different times each method uses to generate the tree. At early iterations with only 100 or fewer symbols to draw, CPU/GPU takes a similar time to generate, and the CPU is even faster in milliseconds. But at later iterations, where thousands of symbols will be drawn to the screen, the time taken for the CPU version is exponentially increasing and become slower than the GPU version.  
+
+<img src="imgs/PA.png" width="600" height="350"/>   
+
 The reason for the time difference is that GPU's parallelism may not be fully utilized until the grammar is complex enough. But one problem with GPU and Unity's compute shader is that if the grammar is too complicated and the whole derived string exceeds the maximum length of string, then the GPU version would not work correctly. It will be a future upgrade if possible, but for now the current version could handle 262144 elements which is sufficient enough for most L-system trees.
 
 ### Overall Performance
@@ -228,4 +232,4 @@ Finally, we placed multiple trees of a single grammar at a different level of ge
 
 |Grammatical mistakes|Copy paste|Reaching for the skies|
 |---|---|---|
-|![](imgs/blooper1.png)|![](imgs/blooper2.png)|![](imgs/blooper3.png)|
+|<img src="imgs/blooper1.png" width="270" height="450"/>|<img src="imgs/blooper2.png" width="270" height="450"/>|<img src="imgs/blooper3.png" width="270" height="450"/>|
