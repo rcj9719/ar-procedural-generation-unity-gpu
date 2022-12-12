@@ -79,7 +79,7 @@ The grass also interacts with the device camera. This means that when a user mov
 
 |Grass under noise based wind forces|Grass interaction with device camera|
 |---|---|
-|<img src="imgs/grassIntro.gif" width="600" height="500"/>|<img src="imgs/grass.gif" width="300" height="500"/>|
+|<img src="imgs/grassIntro.gif" width="650" height="500"/>|<img src="imgs/grass.gif" width="300" height="500"/>|
 
 ---
 
@@ -175,7 +175,7 @@ We have also provided an option for the users to view a pre-arranged set of proc
 
 |Garden preset in Unity|Garden preset in AR|
 |---|---|
-|![](imgs/gardenPresetUnity.png)|![](imgs/gardenPreset.png)|
+|<img src="imgs/gardenPresetUnity.png" width="600" height="400"/>|<img src="imgs/gardenPreset.png" width="600" height="400"/>||
 
 ## Performance Analysis
  * Tested on: Samsung Tablet S8, Qualcomm SM8450 Snapdragon 8 Gen 1;CPU: Octa-core (1x3.00 GHz Cortex-X2 & 3x2.50 GHz Cortex-A710 & 4x1.80 GHz Cortex-A510), GPU: 	Adreno 730  
