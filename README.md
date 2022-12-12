@@ -180,10 +180,10 @@ ARCore is Google's framework for building augmented reality experiences on smart
 
 ### Grass Performance
 The following graph shows how the number of grass blades will impact the framerate on the mobile device; the maximum framerate on our tester device is 31 FPS. With 800 blades covering approximately 1 square-meter(M<sup>2</sup>) of the real-world area, our App can cover up to 46M<sup>2</sup> of area, or 37600 blades of grass, without sacrificing framerate. 
-![](imgs/fpsGrass.png)
+<img src="imgs/fpsGrass.png" width="600" height="350"/>
   
 The pressure on GPU caused by increasing the number grass blades shows why we would have a 37600 grass blades limit. After reaching 32000 grass blades, or approximately covering 40M<sup>2</sup> of area, the GPU usage reaches a throttle at 95%. From 37600 blades and onwards, the device will sacrifice framerate in order to render the grass blades properly.
-![](imgs/gpuGrass.png)  
+<img src="imgs/gpuGrass.png" width="600" height="350"/> 
 ### L-System Performance CPU vs GPU
 We have compared two resources that are using different methods to generate L-System, one is using CPU to generate L-System entirely and one is our current work, which uses GPU to analysis the grammar and only use CPU to instantiate the gameobject in the last step.  
 For the sample to be compared with, we choose one of the L-System Bush written by Paul Bourke as a test case to pay tribute to his work on L-System. We will measure the time that take for them to generate different L-Systems.  
