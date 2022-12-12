@@ -17,7 +17,7 @@ Project ARC is proposed to implement an application for adding procedural elemen
 
 
 ### Installation
-The App has not been released to the public on a mobile app store, but the code can be downloaded and built in Unity. Download and install the .APK file to your android device. AR experiences on Android devices are driven by ARCore, available on [ARCore supported devices](https://developers.google.com/ar/devices). Ensure that your development device is compatible with AR. Alternatively, you can use a correctly configured AR-compatible Android Emulator instance.
+The App has not been released to the public on a mobile app store, but the code can be downloaded and built in Unity. Download and install the .APK file from this repository root to your android device. If it does not work, you may have to build and deploy from Unity. AR experiences on Android devices are driven by ARCore, available only on [ARCore supported devices](https://developers.google.com/ar/devices). Ensure that your development device is compatible with AR. Alternatively, you can use a correctly configured AR-compatible Android Emulator instance.
 
 ### Usage Instruction
 
