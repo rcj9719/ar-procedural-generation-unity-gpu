@@ -71,7 +71,7 @@ In order to have grass curvature and convincing grass movement, each blade of gr
 
 |Tangent Space ([Image source](https://en.wikipedia.org/wiki/Tangent_space#/media/File:Image_Tangent-plane.svg)) |Grass construction ([Image source](https://roystan.net/articles/grass-shader/)) |
 |---|---|
-|<img src="imgs/tangentSpace.png" width="300" height="250"/>|<img src="imgs/grass-construction.gif" width="200" height="200"/>|
+|<img src="imgs/tangentSpace.png" width="250" height="200"/>|<img src="imgs/grass-construction.gif" width="200" height="200"/>|
   
 The wind is implemented by sampling from a noise texture. the UV coordinate is constructed using the grass blades' input points; this will ensure that with multiple grass instances they will behave the same. The wind is then applied using a scaled rotation matrix to each segment of the grass blade. Combining with some variance in blade shapes, the final result looks like this:  
 
@@ -79,7 +79,7 @@ The grass also interacts with the device camera. This means that when a user mov
 
 |Grass under noise based wind forces|Grass interaction with device camera|
 |---|---|
-|<img src="imgs/grassIntro.gif" width="600" height="400"/>|![](imgs/grass.gif)|
+|<img src="imgs/grassIntro.gif" width="600" height="500"/>|<img src="imgs/grass.gif" width="300" height="500"/>|
 
 ---
 
