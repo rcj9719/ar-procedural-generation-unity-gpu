@@ -53,7 +53,7 @@ The App allows you to select a type of grass or procedurally generated trees you
 - [Milestone 1 Presentation](https://docs.google.com/presentation/d/16BDfPikoMo0FX5iWDb8mwlZ5nQAJBaDj30A9Vw1sQ5o/edit#slide=id.p)   
 - [Milestone 2 Presentation](https://docs.google.com/presentation/d/1iHksZZ4u2Z6-Yoie_S-0kXjdsAEHsFWQpKVJzvuKXFI/edit#slide=id.p)   
 - [Milestone 3 Presentation](https://docs.google.com/presentation/d/1cWZAUilfjqYLi6OaeJzwCYyNQ0r6AfFJXVTBsvolfYg/edit#slide=id.g19cafe9bbc4_0_3)   
-- [Final Presentation](https://docs.google.com/presentation/d/1nhRvU-0dief0bP7L1LuMD3uFziOVkGfzeUahdgH2EHA/edit?usp=sharing)   
+- [Final Presentation](https://docs.google.com/presentation/d/1Ozf8Eqi9r11caM3diG6M7kPMKQGqdoF8JHYbn4RyZR4/edit?usp=sharing)   
 
 Implementation
 ===========
@@ -77,7 +77,7 @@ The grass also interacts with the device camera. This means that when a user mov
 
 |Grass under noise based wind forces|Grass interaction with device camera|
 |---|---|
-|<img src="imgs/grassIntro.gif" width="600" height="450"/>|<img src="imgs/grass2.gif" width="270" height="450"/>|
+|<img src="imgs/grassIntro.gif" width="500" height="350"/>|<img src="imgs/grass2.gif" width="270" height="350"/>|
 
 ---
 
@@ -221,16 +221,21 @@ Finally, we placed multiple trees of a single grammar at a different level of ge
 * [Roystan: Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
 * [LSystem Ruleset](http://paulbourke.net/fractals/lsys/)
 
-### Unity Free Asset Packs used include:
+### Unity free asset packs used include:
 - Stylized Hand Painted Nature Pack by BigRookGames
 - Hand Painted Flowers by Infinity3DGame
 
+### Acknowledgements
+1. Adam Mally - For brainstorming ideas on how L-systems can be parallelized & used
+2. Adam Norris - For discussing issues around surface detection & lighting in ARCore
+3. Akhilesh Joshi - For discussing problems faced by existing mesh based AR applications & suggesting user interaction ideas for AR
+4. Erik Minarini - For discussing their CPU based AR Procedural Ivy project and giving lead points
 
 ## Bloopers
 
 |May the force be with you|
 |---|
-|![](imgs/interactBlooper.gif)|
+|<img src="imgs/interactBlooper.gif" width="700" height="350"/>|
 
 |Grammatical mistakes|Copy paste|Reaching for the skies|
 |---|---|---|
