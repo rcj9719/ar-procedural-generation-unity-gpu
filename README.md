@@ -53,7 +53,7 @@ The App allows you to select a type of grass or procedurally generated trees you
 - [Milestone 1 Presentation](https://docs.google.com/presentation/d/16BDfPikoMo0FX5iWDb8mwlZ5nQAJBaDj30A9Vw1sQ5o/edit#slide=id.p)   
 - [Milestone 2 Presentation](https://docs.google.com/presentation/d/1iHksZZ4u2Z6-Yoie_S-0kXjdsAEHsFWQpKVJzvuKXFI/edit#slide=id.p)   
 - [Milestone 3 Presentation](https://docs.google.com/presentation/d/1cWZAUilfjqYLi6OaeJzwCYyNQ0r6AfFJXVTBsvolfYg/edit#slide=id.g19cafe9bbc4_0_3)   
-- [Final Presentation](https://docs.google.com/presentation/d/1nhRvU-0dief0bP7L1LuMD3uFziOVkGfzeUahdgH2EHA/edit?usp=sharing)   
+- [Final Presentation](https://docs.google.com/presentation/d/1Ozf8Eqi9r11caM3diG6M7kPMKQGqdoF8JHYbn4RyZR4/edit?usp=sharing)   
 
 Implementation
 ===========
@@ -77,7 +77,7 @@ The grass also interacts with the device camera. This means that when a user mov
 
 |Grass under noise based wind forces|Grass interaction with device camera|
 |---|---|
-|<img src="imgs/grassIntro.gif" width="600" height="450"/>|<img src="imgs/grass2.gif" width="270" height="450"/>|
+|<img src="imgs/grassIntro.gif" width="500" height="350"/>|<img src="imgs/grass2.gif" width="270" height="350"/>|
 
 ---
 
@@ -235,7 +235,7 @@ Finally, we placed multiple trees of a single grammar at a different level of ge
 
 |May the force be with you|
 |---|
-|<img src="imgs/interactBlooper.gif" width="900" height="450"/>|
+|<img src="imgs/interactBlooper.gif" width="700" height="350"/>|
 
 |Grammatical mistakes|Copy paste|Reaching for the skies|
 |---|---|---|
