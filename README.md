@@ -65,7 +65,7 @@ The grass is rendered through Unity Universal Render Pipeline compute shaders, w
 To make the grass more realistic,we want to change the height of the grass blades so that they do not look too triangle-like. Next, we need randomly twist the grass blades so that they will not be facing the same direction; we also need to bend the grass to mimic gravity. To accomplish the transformational goals, the blade will first be defined in space close to the vertex emitting it, after which it will be transformed to be local to the mesh. We implemented tangent space to cope with this need.
 |Tangent Space ([Image source](https://en.wikipedia.org/wiki/Tangent_space#/media/File:Image_Tangent-plane.svg)) |
 |---|
-|<img src="imgs/tangentSpace.png" width="300" height="300"/>|
+|<img src="imgs/tangentSpace.png" width="300" height="250"/>|
 
 In order to have grass curvature and convincing grass movement, each blade of grass is divided into a number of segments. Comparing to tessellation, this method saves more memory and is more efficient to construct and compute. 
 
@@ -179,8 +179,10 @@ ARCore is Google's framework for building augmented reality experiences on smart
  For the performance analysis we will first do a analysis on each of the component we have implemented, and then we will analyze the overall performance to show that using GPU for L-system generation is a efficient idea.
 
 ### Grass Performance
+The following graph shows how the number of grass blades will impact the framerate on the mobile device; the maximum framerate on our tester device is 31 FPS. With 800 blades covering approximately 1 square-meter(M<sup>2</sup>) of the real-world area, our App can cover up to 46M<sup>2</sup> of area, or 37600 blades of grass, without sacrificing framerate. 
 ![](imgs/fpsGrass.png)
   
+The pressure on GPU caused by increasing the number grass blades shows why we would have a 37600 grass blades limit. After reaching 32000 grass blades, or approximately covering 40M<sup>2</sup> of area, the GPU usage reaches a throttle at 95%. From 37600 blades and onwards, the device will sacrifice framerate in order to render the grass blades properly.
 ![](imgs/gpuGrass.png)  
 ### L-System Performance CPU vs GPU
 We have compared two resources that are using different methods to generate L-System, one is using CPU to generate L-System entirely and one is our current work, which uses GPU to analysis the grammar and only use CPU to instantiate the gameobject in the last step.  
