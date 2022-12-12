@@ -195,7 +195,7 @@ The reason of the time is that GPU's parallelism may not be fully used until the
 ### Overall Performance
 
 ## Credits
-* [Ned Makes Games: Blade Grass]([https://roystan.net/articles/grass-shader/](https://www.youtube.com/watch?v=6SFTcDNqwaA&ab_channel=NedMakesGames))
+* [Ned Makes Games: Blade Grass](https://www.youtube.com/watch?v=6SFTcDNqwaA&ab_channel=NedMakesGames)
 * [Parallel Generation of L-Systems](https://publik.tuwien.ac.at/files/PubDat_181216.pdf)
 * [Roystan: Grass Shader Tutorial](https://roystan.net/articles/grass-shader/)
 
