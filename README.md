@@ -119,7 +119,7 @@ In the derivation process, each thread will take care of each character in the s
 In each iteration of derivation(L-System might go through many iterations), we will first use the scan function to examine the total string length of the next iteration's derived string; then we use the prefix sum array to identify the derived characters' indices in the new string. A new string will be generated after this step.   
 Our scan function can deal with 512*512 = 262144 elements for each L-System, and it is sufficient for this project and the most complex L-system generation.   
 
-| Derivation example from Base Paper | Understanding our example |
+| Derivation example from base paper | Understanding our example |
 |---|---|
 |![Image with How Derive Work](imgs/scan.PNG)|![](imgs/lsystemderivation1.png)|
 
@@ -132,7 +132,7 @@ After we get all the strings from derivation, we will then set data for:<br>
 * DepthBuffer: A compute buffer that identifies each character's depth
 * PosBuffer/OriBuffer: A kernel that identifies the position/orientation vector that the character might change to the next character<br>
 
-| Interpretation example from Base Paper | Our Linked List based implementation |
+| Interpretation example from base paper | Our Linked List based approach |
 |---|---|
 |![Image With how Interpret Work](imgs/interpret.PNG)|![](imgs/lsysteminterpretation1.png)|
 
